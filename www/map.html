@@ -68,23 +68,36 @@
   </head>
     </head>
     <body> 
-            <h1>le mapa</h1>
-            <div id="hidden_content1"></div>
-            <p id="llegue"> Simular que llegue a algun lugar</p>
-            <div id="pregunta">
-                <div id="titulo_pregunta"></div><br>
-                <div id="texto1_pregunta"></div><br>
-                <div id="imagen1_pregunta"></div><br>
-                <div id="texto2_pregunta"></div><br>
-                <div id="imagen2_pregunta"></div><br>
-                <div id="texto3_pregunta"></div> <br>
-                <div id="repuesta_a_pregunta"></div><br>
-                <div id="repuesta_b_pregunta"></div><br>
-                <div id="repuesta_c_pregunta"></div><br>
-                <div id="repuesta_d_pregunta"></div><br>
-                <div id="repuesta_correcta_pregunta"></div><br>
+
+        <div data-role="page" id="pageone">
+            <div data-role="header">
+                <h1>Seccion de pistas</h1>
             </div>
-             <div id="map-canvas"></div>
+
+            <div data-role="main" class="ui-content">
+              <div id="hidden_content1"></div>
+              <p id="llegue" class="ui-btn"> Simular que llegue a algun lugar</p>
+                    <div id="pregunta">
+                      <div id="titulo_pregunta"></div><br>
+                      <div id="texto1_pregunta"></div><br>
+                      <div id="imagen1_pregunta"></div><br>
+                      <div id="texto2_pregunta"></div><br>
+                      <div id="imagen2_pregunta"></div><br>
+                      <div id="texto3_pregunta"></div> <br>
+                      <div id="repuesta_a_pregunta"></div><br>
+                      <div id="repuesta_b_pregunta"></div><br>
+                      <div id="repuesta_c_pregunta"></div><br>
+                      <div id="repuesta_d_pregunta"></div><br>
+                      <div id="repuesta_correcta_pregunta"></div><br>
+                    </div>
+            </div>
+
+            <div data-role="footer">
+                <h1>Uninorte Rally</h1>
+                <div id="map-canvas"></div>
+            </div>
+        </div>
+        
         <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
         <script type="text/javascript" src="js/getPistas.js"></script>
