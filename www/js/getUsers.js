@@ -1,3 +1,4 @@
+$.support.cors = true;
 var jugadoresArray=[];
 var numUsers
 var cont = 0;
