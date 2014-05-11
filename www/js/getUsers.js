@@ -16,7 +16,8 @@ $('#button1').click(function(){
 		htmlToParse +="</form>";
 		$('#numUsersForm').hide();
 		$('#infUsersForm').html(htmlToParse);*/
-		window.location = "#pagetwo";
+		//window.location = "#pagetwo";
+		$.mobile.navigate("#pagetwo", {transition: "slide"});
 	}else{
 		alert("Lo siento numero invalido de usuarios");
 	}
