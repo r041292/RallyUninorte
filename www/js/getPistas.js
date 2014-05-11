@@ -14,7 +14,7 @@ $('#llegue').click(function(){
 function showPista(){
 	 $.ajax({    //create an ajax request
         type: "GET",
-        url: "getPista_Lugar.php",             
+        url: "http://uninorterally1.hol.es/getPista_Lugar.php",             
         dataType: "html",   //expect html to be returned                
         success: function(response){                    
             //alert(response);
@@ -28,7 +28,7 @@ function showPista(){
 function showPregunta(){
     $.ajax({    //create an ajax request to load_page.php
         type: "GET",
-        url: "getPregunta.php",             
+        url: "http://uninorterally1.hol.es/getPregunta.php",             
         dataType: "html",   //expect html to be returned                
         success: function(response){                    
             //alert(response);
