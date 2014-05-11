@@ -1,9 +1,12 @@
 var jugadoresArray=[];
+var numUsers
+var cont = 0;
 
 $('#button1').click(function(){
-	var numUsers = $('#numeroUsuarios').val();
+	numUsers = $('#numeroUsuarios').val();
 	
 	if(numUsers>0 && numUsers<=7){
+		/*
 		alert("Se iniciara el juego con "+numUsers+" usuario(s)");
 		var htmlToParse="<form>";
 		for (var i=0;i<numUsers;i++){
@@ -12,13 +15,45 @@ $('#button1').click(function(){
 		htmlToParse +="<p class=\"button1\" id=\"button2\" onclick=\"cargarUsuarios("+i+")\">Enviar</p>";
 		htmlToParse +="</form>";
 		$('#numUsersForm').hide();
-		$('#infUsersForm').html(htmlToParse);
+		$('#infUsersForm').html(htmlToParse);*/
+		window.location = "#pagetwo";
 	}else{
 		alert("Lo siento numero invalido de usuarios");
 	}
 
 })
 
+$('#button2').click(function(){
+	var sw=0;
+	if(cont<numUsers){
+		var tempCodigo= $('#idUsuario').val();
+		var tempEmail= $('#nombreUsuario').val();
+
+		if(isNumber(tempCodigo)){
+			jugadoresArray.push({
+				codigo:tempCodigo,
+				email:tempEmail	});
+			cont+=1;
+			$('#userinfoheader').html("<b>Informacion para Usuario "+(cont+1)+"</b>");
+			$('#dataFromUsers_form')[0].reset();
+		}else{
+			alert("hay un error");
+		}
+
+	}
+ 
+	if(cont==numUsers){
+
+		(function (global) {
+		global.localStorage.setItem("jugadoresArray", jugadoresArray);
+		}(window));
+		window.location.replace("map.html");
+	}
+	
+
+})
+
+/*
 function cargarUsuarios(numUsers){
 	var sw=1;
 	for(var i=0;i<numUsers;i++){
@@ -43,7 +78,7 @@ function cargarUsuarios(numUsers){
 		window.location.replace("map.html");
 	}
 }
-
+*/
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
