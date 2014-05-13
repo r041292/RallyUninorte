@@ -7,64 +7,8 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link  rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css" />
         <title>UninorteRally - MAP</title>
-        <style>
-      html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
-    </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script>
-      var map;
-      
-      function initialize() {
-        var mapOptions = {
-          zoom: 17
-        };
-        map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
+         
 
-        // Try HTML5 geolocation
-        if(navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-            var infowindow = new google.maps.InfoWindow({
-              map: map,
-              position: pos,
-              content: 'Your position'
-            });
-
-            map.setCenter(pos);
-          }, function() {
-            handleNoGeolocation(true);
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleNoGeolocation(false);
-        }
-      }
-
-      function handleNoGeolocation(errorFlag) {
-        if (errorFlag) {
-          var content = 'Error: The Geolocation service failed.';
-        } else {
-          var content = 'Error: Your browser doesn\'t support geolocation.';
-        }
-
-        var options = {
-          map: map,
-          position: new google.maps.LatLng(60, 105),
-          content: content
-        };
-
-        var infowindow = new google.maps.InfoWindow(options);
-        map.setCenter(options.position);
-      }
-
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
   </head>
     </head>
     <body> 
@@ -77,6 +21,7 @@
             <div data-role="main" class="ui-content">
               <div id="hidden_content1"></div>
               <p id="llegue" class="ui-btn"> Simular que llegue a algun lugar</p>
+              <a href="#pagetwo" id="botonmapa" class="ui-btn"> Mostrar mapa</a>
                     <div id="pregunta">
                       <div id="titulo_pregunta"></div><br>
                       <div id="texto1_pregunta"></div><br>
@@ -94,13 +39,26 @@
 
             <div data-role="footer">
                 <h1>Uninorte Rally</h1>
-                <div style="width:300px;height:300px">
-                   <div id="map-canvas"></div>
-                </div>
+                
             </div>
         </div>
         
-        
+        <div data-role="page" id="pagetwo">
+            <div data-role="header">
+                <h1>Seccion de pistas</h1>
+            </div>
+
+            <div data-role="main" class="ui-content">
+                 <div style="width:800px;height:600px" id="map-canvas"></div>
+                 <a href="#pageone" id="botonpista" class="ui-btn"> Mostrar pista</a>
+            </div>
+
+            <div data-role="footer">
+                <h1>Uninorte Rally</h1>
+            </div>
+        </div>
+
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> 
         <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
         <script type="text/javascript" src="js/getPistas.js"></script>
