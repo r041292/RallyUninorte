@@ -22,7 +22,7 @@
 		$info["texto_3"] = $preguntainfo["texto_3"];
 		$info["imagen_1"] = $preguntainfo["imagen_1"];
 		$info["imagen_2"] = $preguntainfo["imagen_2"];
-		$info["respuesta_a"] = $preguntainfo["repuesta_a"];
+		$info["respuesta_a"] = $preguntainfo["respuesta_a"];
 		$info["respuesta_b"] = $preguntainfo["respuesta_b"];
 		$info["respuesta_c"] = $preguntainfo["respuesta_c"];
 		$info["respuesta_d"] = $preguntainfo["respuesta_d"];

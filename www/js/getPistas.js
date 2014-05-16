@@ -6,8 +6,24 @@ window.onload = function(){
 
 $('#llegue').click(function(){
 		showPista();
+        clearPregunta();
         showPregunta();
+
 })
+
+function clearPregunta(){
+  $('#titulo_pregunta').html("");
+  $('#texto1_pregunta').html("");
+  $('#texto2_pregunta').html("");
+  $('#texto3_pregunta').html("");
+  $('#imagen1_pregunta').html("");
+  $('#imagen2_pregunta').html("");
+  $('#repuesta_a_pregunta').html("");
+  $('#repuesta_b_pregunta').html("");
+  $('#repuesta_c_pregunta').html("");
+  $('#repuesta_d_pregunta').html("");
+  $('#repuesta_correcta_pregunta').html("");
+}
 
 
 function showPista(){
@@ -35,14 +51,16 @@ function showPregunta(){
             //alert( pregunta.texto_1 );
             $('#titulo_pregunta').html(pregunta.titulo_pregunta);
             $('#texto1_pregunta').html(pregunta.texto_1);
-            $('#texto2_pregunta').html(pregunta.texto2);
-            $('#texto3_pregunta').html(pregunta.texto3);
-            $('#imagen1_pregunta').html("<img src=img/"+pregunta.imagen_1+">");
-            $('#imagen2_pregunta').html(pregunta.imagen_2);
-            $('#repuesta_a_pregunta').html(pregunta.respuesta_a);
-            $('#repuesta_b_pregunta').html(pregunta.respuesta_b);
-            $('#repuesta_c_pregunta').html(pregunta.respuesta_c);
-            $('#repuesta_d_pregunta').html(pregunta.respuesta_d);
+            $('#texto2_pregunta').html(pregunta.texto_2);
+            $('#texto3_pregunta').html(pregunta.texto_3);
+            if(pregunta.imagen_1!=null){
+            $('#imagen1_pregunta').html("<img src=img/"+pregunta.imagen_1+">");}
+             if(pregunta.imagen_2!=null){
+            $('#imagen2_pregunta').html("<img src=img/"+pregunta.imagen_2+">");}
+            $('#repuesta_a_pregunta').html("A. "+pregunta.respuesta_a);
+            $('#repuesta_b_pregunta').html("B. "+pregunta.respuesta_b);
+            $('#repuesta_c_pregunta').html("C. "+pregunta.respuesta_c);
+            $('#repuesta_d_pregunta').html("D. "+pregunta.respuesta_d);
             $('#repuesta_correcta_pregunta').html(pregunta.respuesta_correcta);
             }
 
@@ -103,14 +121,21 @@ var map;
       google.maps.event.addDomListener(window, 'load', initialize);
 
     $('#botonmapa').click(function(){
-     
-    resetMap(map);  })
+    //setTimeout(resetMap(map),30000);  
+    setTimeout(f, 1000);
+
+
+  })
 
     function resetMap(m) {
      x = m.getZoom();
      c = m.getCenter();
-     alert(m.getCenter()); 
+     //alert(m.getCenter()); 
      google.maps.event.trigger(m, 'resize');
      m.setZoom(x);
      m.setCenter(c);
    }
+
+  function f() {
+    resetMap(map);
+  }
