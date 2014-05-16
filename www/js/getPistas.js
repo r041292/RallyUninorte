@@ -163,3 +163,21 @@ var watchID = null;
   function onError(){
     alert("No puedo encontrarte :(");
   }
+
+
+//Image scroll
+var myScroll;
+
+function load_pinch1() {
+myScroll = new IScroll('#pregunta',
+{ zoom:true, zoomMax: 5 });
+}
+
+
+function load_pinch2() {
+//myScroll = new IScroll('#imagen2_pregunta',
+//{ zoom:true, zoomMax: 4 });
+}
+
+document.addEventListener('DOMContentLoaded', load_pinch1, false);
+document.addEventListener('DOMContentLoaded', load_pinch2, false);
