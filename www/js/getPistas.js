@@ -155,11 +155,11 @@ var watchID = null;
   function onSuccess(ubicacion){
     var miubicacion = new google.maps.LatLng(ubicacion.coords.latitude, ubicacion.coords.longitude);
     pos = miubicacion;
-    alert(pos);
+    //alert(pos);
     map.setCenter(miubicacion);
     marcador.setPosition(miubicacion);
   } 
 
   function onError(){
-    alert(" no puedo encontrarte :(");
+    alert("No puedo encontrarte :(");
   }
