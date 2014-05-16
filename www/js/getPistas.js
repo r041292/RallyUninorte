@@ -70,7 +70,10 @@ function showPregunta(){
 //MAP JS
 
 var map;
-      
+var pos;
+var marcador;
+var watchID = null;
+
       function initialize() {
         var mapOptions = {
           zoom: 17
@@ -98,7 +101,16 @@ var map;
           // Browser doesn't support Geolocation
           handleNoGeolocation(false);
         }
- 
+
+          marcador = new google.maps.Marker( {
+            position: pos,
+             map:map
+          });
+
+        //Location Changed
+        var options = { timeout: 2000 };
+        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+
       }
 
       function handleNoGeolocation(errorFlag) {
@@ -138,4 +150,16 @@ var map;
 
   function f() {
     resetMap(map);
+  }
+
+  function onSuccess(ubicacion){
+    var miubicacion = new google.maps.LatLng(ubicacion.coords.latitude, ubicacion.coords.longitude);
+    pos = miubicacion;
+    alert(pos);
+    map.setCenter(miubicacion);
+    marcador.setPosition(miubicacion);
+  } 
+
+  function onError(){
+    alert(" no puedo encontrarte :(");
   }
