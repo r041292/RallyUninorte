@@ -165,19 +165,68 @@ var watchID = null;
   }
 
 
-//Image scroll
-var myScroll;
+//Hammer -- pinch to zoom  //
 
-function load_pinch1() {
-myScroll = new IScroll('#pregunta',
-{ zoom:true, zoomMax: 5 });
+if(!Hammer.HAS_TOUCHEVENTS && !Hammer.HAS_POINTEREVENTS) {
+   Hammer.plugins.showTouches();
 }
 
-
-function load_pinch2() {
-//myScroll = new IScroll('#imagen2_pregunta',
-//{ zoom:true, zoomMax: 4 });
+if(!Hammer.HAS_TOUCHEVENTS && !Hammer.HAS_POINTEREVENTS) {
+   Hammer.plugins.fakeMultitouch();
 }
 
-document.addEventListener('DOMContentLoaded', load_pinch1, false);
-document.addEventListener('DOMContentLoaded', load_pinch2, false);
+var hammertime = Hammer(document.getElementById('zoomwrapper1'), {
+        transform_always_block: false,
+        transform_min_scale: 0.5,
+        drag_block_horizontal: false,
+        drag_block_vertical: false,
+        drag_min_distance: 0
+    });
+    var elemRect;
+    var posX=0, posY=0,
+    lastPosX=0, lastPosY=0,
+    bufferX=0, bufferY=0,
+        scale=1, last_scale,
+        rotation= 1, last_rotation, dragReady=0;
+
+    hammertime.on('touch drag dragend transform', function(ev) {
+        elemRect = document.getElementById('imagen1_pregunta');
+    manageMultitouch(ev);
+    });
+
+    function manageMultitouch(ev){
+
+    switch(ev.type) {
+            case 'touch':
+                last_scale = scale;
+                last_rotation = rotation;
+
+                break;
+
+            case 'drag':
+                  posX = ev.gesture.deltaX + lastPosX;
+                  posY = ev.gesture.deltaY + lastPosY;
+                break;
+
+            case 'transform':
+                rotation = last_rotation + ev.gesture.rotation;
+                scale = Math.max(1, Math.min(last_scale * ev.gesture.scale, 5));
+                break;
+
+      case 'dragend':
+        lastPosX = posX;
+        lastPosY = posY;
+        break;
+        }
+
+        var transform =
+                "translate3d("+0+"px,"+0+"px, 0) " +
+                "scale3d("+scale+","+scale+", 0) " +
+                "rotate("+0+"deg) ";
+
+        elemRect.style.transform = transform;
+        elemRect.style.oTransform = transform;
+        elemRect.style.msTransform = transform;
+        elemRect.style.mozTransform = transform;
+        elemRect.style.webkitTransform = transform;
+  }

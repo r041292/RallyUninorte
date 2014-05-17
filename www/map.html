@@ -23,9 +23,9 @@
               <a href="#pagetwo" id="botonmapa" class="ui-btn"> Mostrar mapa</a>
                     <div id="pregunta">
                       <div id="titulo_pregunta"></div><br>
-                      <div id="texto1_pregunta"></div><br>
-                      <div id="imagen1_pregunta"></div><br>
-                      <div id="texto2_pregunta"></div><br>
+                      <div align="justify" id="texto1_pregunta"></div><br>
+                     <div id="zoomwrapper1"><div id="imagen1_pregunta"></div></div> <br>
+                      <div align="justify" id="texto2_pregunta"></div><br>
                       <div id="imagen2_pregunta"></div><br>
                       <div id="texto3_pregunta"></div> <br>
                       <div id="repuesta_a_pregunta"></div><br>
@@ -56,7 +56,13 @@
                 <h1>Uninorte Rally</h1>
             </div>
         </div>
-        <script type="text/javascript" src="js/iscroll.js"></script>
+
+        <!--JS Para pinch to zoom. Referencia: http://creativedroplets.com/html5-and-multitouch-hammer-js/ -->
+        <script type="text/javascript" src="js/hammer.min.js"></script>
+         <script type="text/javascript" src="js/hammer.fakemultitouch.js"></script>
+          <script type="text/javascript" src="js/hammer.showtouches.js"></script>
+        <!--Fin de los JS para pinch to zoom -->
+
         <script type="text/javascript" src="js/cordova-2.0.0.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> 
         <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
