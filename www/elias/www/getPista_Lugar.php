@@ -17,10 +17,9 @@
 	$info["id_lugar"] = $pistainfo["id_lugar"]; 
 	}
 
-	$temp = array(); 
-	$temp["pista"]=$info["pista"];
+	$temp=$info["pista"];
 	//echo "lugar: "+$info["id_lugar"]+"<br>"; 
-	//echo "Pista: " .$temp["pista"] . "<br>" ;
+	echo "Pista: " .$temp . "<br>" ;
 	$tempLugar = $info["id_lugar"];
 
 	$query ="SELECT * FROM Lugar WHERE id_lugar = $tempLugar;"; 
@@ -32,11 +31,6 @@
 	$info2["lat"] = $lugarinfo["lat"]; 
 	$info2["long"] = $lugarinfo["long"]; 
 	}
-
-	//echo $info2["lat"]." , ".$info2["long"];
-	$temp["lat"] = $info2["lat"];
-	$temp["long"] = $info2["long"];
-
-	echo json_encode($temp);
+	echo $info2["lat"]." , ".$info2["long"];
 	
 ?>

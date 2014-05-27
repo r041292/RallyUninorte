@@ -12,23 +12,7 @@
     </head>
     <body> 
 
-         <div data-role="page" id="pageone">
-            <div data-role="header">
-                <h1>Seccion de pistas</h1>
-            </div>
-
-            <div data-role="main" class="ui-content">
-              <div id="hidden_content1"></div><br>
-                 <div style="width:100%;height:600px" id="map-canvas"></div>
-                 <a href="#pagetwo" id="botonpista" class="ui-btn"> Mostrar pista</a>
-            </div>
-
-            <div data-role="footer">
-                <h1>Uninorte Rally</h1>
-            </div>
-        </div>
-
-        <div data-role="page" id="pagetwo">
+        <div data-role="page" id="pageone">
             <div data-role="header">
                 <h1>Seccion de pistas</h1>
             </div>
@@ -36,7 +20,7 @@
             <div data-role="main" class="ui-content">
               <div id="hidden_content1"></div>
               <p id="llegue" class="ui-btn"> Simular que llegue a algun lugar</p>
-              <a href="#pageone" id="botonmapa" class="ui-btn"> Mostrar mapa</a>
+              <a href="#pagetwo" id="botonmapa" class="ui-btn"> Mostrar mapa</a>
                     <div id="pregunta">
                       <div id="titulo_pregunta"></div><br>
                       <div align="justify" id="texto1_pregunta"></div><br>
@@ -58,7 +42,20 @@
             </div>
         </div>
         
-       
+        <div data-role="page" id="pagetwo">
+            <div data-role="header">
+                <h1>Seccion de pistas</h1>
+            </div>
+
+            <div data-role="main" class="ui-content">
+                 <div style="width:900px;height:600px" id="map-canvas"></div>
+                 <a href="#pageone" id="botonpista" class="ui-btn"> Mostrar pista</a>
+            </div>
+
+            <div data-role="footer">
+                <h1>Uninorte Rally</h1>
+            </div>
+        </div>
 
         <!--JS Para pinch to zoom. Referencia: http://creativedroplets.com/html5-and-multitouch-hammer-js/ -->
         <script type="text/javascript" src="js/hammer.min.js"></script>

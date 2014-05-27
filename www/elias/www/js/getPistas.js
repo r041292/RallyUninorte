@@ -1,6 +1,3 @@
-var PistaLat;
-var PistaLong;
-
 window.onload = function(){
 	showPista();
 }
@@ -8,11 +5,18 @@ window.onload = function(){
 
 
 $('#llegue').click(function(){
-		showPista();
-        clearPregunta();
+    //showPista();
+        //clearPregunta();
         showPregunta();
-
 })
+$('#ciclo').click(function(){
+    //showPista();
+        //clearPregunta();
+        ciclo();
+})
+
+
+
 
 function clearPregunta(){
   $('#titulo_pregunta').html("");
@@ -36,16 +40,13 @@ function showPista(){
         dataType: "html",   //expect html to be returned                
         success: function(response){                    
             //alert(response);
-            
-            var pista = jQuery.parseJSON( response );
-            $('#hidden_content1').html(pista.pista);
-            PistaLat = pista.lat;
-            PistaLong = pista.long;
+            $('#hidden_content1').html(response);
 
         	}
 
     	}); 
 }
+var correcta;
 
 function showPregunta(){
     $.ajax({    //create an ajax request to load_page.php
@@ -65,14 +66,123 @@ function showPregunta(){
              if(pregunta.imagen_2!=null){
             $('#imagen2_pregunta').html("<img src=img/"+pregunta.imagen_2+">");}
             $('#repuesta_a_pregunta').html("A. "+pregunta.respuesta_a);
+            //a=(pregunta.respuesta_a);
             $('#repuesta_b_pregunta').html("B. "+pregunta.respuesta_b);
+            //b=(pregunta.respuesta_b);
             $('#repuesta_c_pregunta').html("C. "+pregunta.respuesta_c);
+            //c=(pregunta.respuesta_c);
             $('#repuesta_d_pregunta').html("D. "+pregunta.respuesta_d);
+           // d=(pregunta.respuesta_d);
             $('#repuesta_correcta_pregunta').html(pregunta.respuesta_correcta);
+            correcta=(pregunta.respuesta_correcta);
             }
 
         });
 }
+/*function sumaResultado(array1, array2) {
+            var array3 = [];
+            //var minLength = Math.min(array1.length, array2.length);
+            for ( var i = 0; i < minLength; i++) {
+                array3[i] = array1[i] + array2[i];
+            }
+            return array3;
+        }
+        */
+
+
+var numero_jugadores=4;
+var i=1;
+
+var rondas= 2;
+var arrayViejo = new Array(numero_jugadores);
+var arrayNuevo = new Array(numero_jugadores);
+var largo = (numero_jugadores + 1);
+for ( var l = 1; l < largo; l++) {
+                arrayViejo[l]= 0;
+            }
+
+
+
+var puntos_por_ronda = new Array(numero_jugadores);
+
+function verificar(respuesta){
+  if(correcta==respuesta){
+    alert("Respuesta Correcta para el jugador: "+i+"");
+          if(i<numero_jugadores){
+            puntos_por_ronda[i] = 1
+            i=i+1;
+            showPregunta();
+
+          }else{
+            puntos_por_ronda[i]=1
+            alert("Ya han participado los: "+i+" jugadores. SIGUIENTE PISTA :)");
+            
+
+            alert("PUNTOS: "+puntos_por_ronda[1]+","+puntos_por_ronda[2]+","+puntos_por_ronda[3]+","+puntos_por_ronda[4]+".");
+            for ( var j = 1; j < largo; j++) {
+                arrayNuevo[j] = puntos_por_ronda[j] + arrayViejo[j];
+            }
+            
+            arrayViejo= arrayNuevo;
+            alert("nuevo array: "+arrayNuevo[1]+","+arrayNuevo[2]+","+arrayNuevo[3]+","+arrayNuevo[4]+".");
+            
+            clearPregunta();
+            i=1;
+            if (rondas==1){
+            alert("YA PASARON LAS 2 RONDAS. SE HA TERMINADO");
+          }else{
+            showPista();
+          }
+          rondas--;
+            
+          }
+  }else{
+    alert("Respuesta Incorrecta para el jugador: "+i+"");
+    if(i<numero_jugadores){
+            puntos_por_ronda[i]=0
+            i=i+1;
+            showPregunta();
+          }else{
+            puntos_por_ronda[i]=0
+            alert("Ya han participado los: "+i+" jugadores. SIGUIENTE PISTA :)");
+            
+
+            alert("PUNTOS: "+puntos_por_ronda[1]+","+puntos_por_ronda[2]+","+puntos_por_ronda[3]+","+puntos_por_ronda[4]+".");
+            for ( var j = 1; j < largo; j++) {
+                arrayNuevo[j] = puntos_por_ronda[j] + arrayViejo[j];
+            }
+            
+            arrayViejo= arrayNuevo;
+            alert("nuevo array: "+arrayNuevo[1]+","+arrayNuevo[2]+","+arrayNuevo[3]+","+arrayNuevo[4]+".");
+            
+            clearPregunta();
+            
+            i=1;
+            if (rondas==1){
+            alert("YA PASARON LAS 2 RONDAS. SE HA TERMINADO");
+          }else{
+            showPista();
+          }
+          rondas--;
+          }
+
+  }
+}
+$('#repuesta_a_pregunta').click(function(){
+    verificar("a");
+})
+
+$('#repuesta_b_pregunta').click(function(){
+    verificar("b");
+
+})
+$('#repuesta_c_pregunta').click(function(){
+    verificar("c");
+
+})
+$('#repuesta_d_pregunta').click(function(){
+    verificar("d");
+})
 
 //MAP JS
 
@@ -118,7 +228,6 @@ var watchID = null;
         var options = { timeout: 2000 };
         watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 
-        setTimeout(f, 1000);
       }
 
       function handleNoGeolocation(errorFlag) {
@@ -163,16 +272,9 @@ var watchID = null;
   function onSuccess(ubicacion){
     var miubicacion = new google.maps.LatLng(ubicacion.coords.latitude, ubicacion.coords.longitude);
     pos = miubicacion;
-    var miLat=ubicacion.coords.latitude;
-    var miLong=ubicacion.coords.longitude;
-    var rangoLugar =  0.0002;
     //alert(pos);
     map.setCenter(miubicacion);
     marcador.setPosition(miubicacion);
-    if((((PistaLat-rangoLugar) < miLat)&&(miLat < (PistaLat + rangoLugar)))&&
-          (((PistaLong+rangoLugar) > miLong)&&(miLong > (PistaLong-rangoLugar)))){
-      //cargar ciclo de preguntas
-    }
   } 
 
   function onError(){
