@@ -19,40 +19,38 @@ $('#button1').click(function(){
 		$('#infUsersForm').html(htmlToParse);*/
 		//window.location = "#pagetwo";
 		$.mobile.navigate("#pagetwo", {transition: "slide"});
+	}else if (numUsers > 7){
+		alert("Número máximo de jugadores: 7");
 	}else{
-		alert("Lo siento numero invalido de usuarios");
-	}
+		alert("Lo siento, número invalido de jugadores.");
+	} 
 
 })
 
 $('#button2').click(function(){
-	var sw=0;
-	if(cont<numUsers){
-		var tempCodigo= $('#idUsuario').val();
-		var tempEmail= $('#nombreUsuario').val();
+	var tempCodigo= $('#idUsuario').val();
+	var tempEmail= $('#nombreUsuario').val();
 
-		if(isNumber(tempCodigo)){
-			jugadoresArray.push({
-				codigo:tempCodigo,
-				email:tempEmail	});
-			cont+=1;
+	if(isNumber(tempCodigo)) {
+		jugadoresArray.push({
+			codigo:tempCodigo,
+			email:tempEmail,
+			preguntas:[false, false, false, false, false]
+		});
+		cont+=1;
+		alert("Usuario agregado con éxito.");
+		if(cont<numUsers){
 			$('#userinfoheader').html("<b>Informacion para Usuario "+(cont+1)+"</b>");
 			$('#dataFromUsers_form')[0].reset();
-		}else{
-			alert("hay un error");
+		}else { 
+			(function (global) {
+				global.localStorage.setItem("jugadoresArray", jugadoresArray);
+			}(window));
+			window.location.replace("map.html");
 		}
-
+	}else{
+		alert("Ingrese un código válido.");
 	}
- 
-	if(cont==numUsers){
-
-		(function (global) {
-		global.localStorage.setItem("jugadoresArray", jugadoresArray);
-		}(window));
-		window.location.replace("map.html");
-	}
-	
-
 })
 
 /*
@@ -82,5 +80,5 @@ function cargarUsuarios(numUsers){
 }
 */
 function isNumber(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
+  	return !isNaN(parseFloat(n)) && isFinite(n);
 }
