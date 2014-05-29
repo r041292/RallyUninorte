@@ -108,10 +108,10 @@ function generarTurno(){
 
 //B¡VARIABLES NECESARIAS PARA VARIAS COSAS____________________________________________________-
         var correcta;
-        var numero_jugadores=4;
+        var numero_jugadores=numJugadores;
         var i=1;
 
-        var numeroRondas= 3;
+        var numeroRondas= 5;
         var arrayViejo = new Array(numero_jugadores);
         var arrayNuevo = new Array(numero_jugadores);
         var largo = (numero_jugadores + 1);
