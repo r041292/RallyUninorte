@@ -35,7 +35,7 @@ $('#button2').click(function(){
 		jugadoresArray.push({
 			codigo:tempCodigo,
 			nombre:tempEmail,
-			preguntas:[false, false, false, false, false]
+			preguntas:[1, 2, 3, 4, 5]
 		});
 		cont+=1;
 		alert("Usuario agregado con éxito.");

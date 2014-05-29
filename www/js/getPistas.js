@@ -2,11 +2,17 @@ var PistaLat;
 var PistaLong;
 var jugadoresArray = JSON.parse(localStorage.getItem("jugadoresArray"));
 var numJugadores = jugadoresArray.length;
-var turno = -1; // Numero random entre 0 y numjugadores
-var ronda = 0;
+var ordenTurno = new Array();
+var turnoJugador = -1;
+var ronda = 1;
+var level = 1;
+var fin = false;
 
 window.onload = function(){
 	showPista();
+  for (var i = 0; i < numJugadores; i++) {
+    ordenTurno[i] = i;
+  }
 }
 
 $('#llegue').click(function(){
@@ -47,61 +53,68 @@ function showPista(){
 
 function showPregunta(){
   generarTurno();
+  generarNivel();
+  if (!fin) {
+    $.ajax({  //create an ajax request to load_page.php
+      type: "GET",
+      url: "http://uninorterally1.hol.es/getPregunta.php?nivelpregunta="+level,             
+      dataType: "html",   //expect html to be returned                
+      success: function(response){                    
+        //alert(response);
+        var pregunta = jQuery.parseJSON( response );
+        //alert( pregunta.texto_1 );
+        $('#titulo_pregunta').html(pregunta.titulo_pregunta);
+        $('#texto1_pregunta').html(pregunta.texto_1);
+        $('#texto2_pregunta').html(pregunta.texto_2);
+        $('#texto3_pregunta').html(pregunta.texto_3);
+        if(pregunta.imagen_1!=null) {
+          $('#imagen1_pregunta').html("<img src=img/"+pregunta.imagen_1+">");
+        }
+        if(pregunta.imagen_2!=null) {
+          $('#imagen2_pregunta').html("<img src=img/"+pregunta.imagen_2+">");
+        }
+        $('#repuesta_a_pregunta').html("A. "+pregunta.respuesta_a);
+        $('#repuesta_b_pregunta').html("B. "+pregunta.respuesta_b);
+        $('#repuesta_c_pregunta').html("C. "+pregunta.respuesta_c);
+        $('#repuesta_d_pregunta').html("D. "+pregunta.respuesta_d);
+        $('#repuesta_correcta_pregunta').html(pregunta.respuesta_correcta);
+        $('#nivel_pregunta').html("TURNO: "+turnoJugador+"Nombre: "+jugadoresArray[turnoJugador].nombre+" RONDA: "+ronda+" LEVEL: "+level);
 
-  if (true){
-
-  $.ajax({  //create an ajax request to load_page.php
-    type: "GET",
-    url: "http://uninorterally1.hol.es/getPregunta.php?nivelpregunta=1",             
-    dataType: "html",   //expect html to be returned                
-    success: function(response){                    
-      //alert(response);
-      var pregunta = jQuery.parseJSON( response );
-      //alert( pregunta.texto_1 );
-      $('#titulo_pregunta').html(pregunta.titulo_pregunta);
-      $('#texto1_pregunta').html(pregunta.texto_1);
-      $('#texto2_pregunta').html(pregunta.texto_2);
-      $('#texto3_pregunta').html(pregunta.texto_3);
-      if(pregunta.imagen_1!=null) {
-        $('#imagen1_pregunta').html("<img src=img/"+pregunta.imagen_1+">");
+        //Variable para verificacion de respuesta. Elias la usa
+        correcta=(pregunta.respuesta_correcta);
       }
-      if(pregunta.imagen_2!=null) {
-        $('#imagen2_pregunta').html("<img src=img/"+pregunta.imagen_2+">");
-      }
-      $('#repuesta_a_pregunta').html("A. "+pregunta.respuesta_a);
-      $('#repuesta_b_pregunta').html("B. "+pregunta.respuesta_b);
-      $('#repuesta_c_pregunta').html("C. "+pregunta.respuesta_c);
-      $('#repuesta_d_pregunta').html("D. "+pregunta.respuesta_d);
-      $('#repuesta_correcta_pregunta').html(pregunta.respuesta_correcta);
-      $('#nivel_pregunta').html("NIVEL PREGUNTA: "+turno);
-
-      //Variable para verificacion de respuesta. Elias la usa
-      correcta=(pregunta.respuesta_correcta);
-      }
-
-  });
+    });
+  }else {
+    $('#nivel_pregunta').html("JUEGO TERMINADO!");
   }
 } 
 
-function generarTurno(){
-  if (ronda != 5) {
-    //Validar que existan usuarios activos en la ronda
-    var sw = false;
-    for (var i = 0; i < numjugadores; i++) {
-      if (jugadoresArray[i].preguntas[ronda] == false){
-        sw = true;
-        break;
+function generarTurno() {
+  console.log(ronda);
+  if (ronda < 6 ) {
+    if(!(ronda == 5 && ordenTurno.length == 0)){
+      if(ordenTurno.length == 0) { //Si faltan usuarios por jugar la ronda
+        //jugadoresArray[turnoTemp].preguntas[ronda] = false;
+        ronda+=1;
+        for (var i = 0; i < numJugadores; i++) {
+          ordenTurno[i] = i;  
+        }
       }
+      var turnoTemp = Math.floor((Math.random() * ordenTurno.length)); // Numero del jugador en turno
+      turnoJugador = ordenTurno[turnoTemp];
+      ordenTurno.splice(turnoTemp, 1);
+    }else{
+      fin = true;
     }
- 
-    if(sw) {
-      do{
-        turno = Math.floor((Math.random() * numJugadores)); // Numero random entre 0 y numjugadores
-      }while(jugadoresArray[turno].preguntas[ronda] == true)
-      jugadoresArray[turno].preguntas[ronda] = false;
-    }else
-      ronda+=1;
-  }else
+  }else {
+    fin = true;
+  }
+}
+
+function generarNivel(){
+  var levelTemp = Math.floor((Math.random() * jugadoresArray[turnoJugador].preguntas.length)); // Numero del jugador en turno
+  level = jugadoresArray[turnoJugador].preguntas[levelTemp];
+  jugadoresArray[turnoJugador].preguntas.splice(levelTemp, 1);
 }
 
 //Seccion de preguntas - Elias //
