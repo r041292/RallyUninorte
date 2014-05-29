@@ -2,6 +2,8 @@ var PistaLat;
 var PistaLong;
 var jugadoresArray = JSON.parse(localStorage.getItem("jugadoresArray"));
 var numJugadores = jugadoresArray.length;
+var turno = -1; // Numero random entre 0 y numjugadores
+var ronda = 0;
 
 window.onload = function(){
 	showPista();
@@ -44,6 +46,7 @@ function showPista(){
 }
 
 function showPregunta(){
+  generarTurno();
 
   if (true){
 
@@ -70,11 +73,32 @@ function showPregunta(){
       $('#repuesta_c_pregunta').html("C. "+pregunta.respuesta_c);
       $('#repuesta_d_pregunta').html("D. "+pregunta.respuesta_d);
       $('#repuesta_correcta_pregunta').html(pregunta.respuesta_correcta);
-      $('#nivel_pregunta').html("NIVEL PREGUNTA: "+jugadoresArray[0].nombre);
+      $('#nivel_pregunta').html("NIVEL PREGUNTA: "+turno);
       }
 
   });
   }
+} 
+
+function generarTurno(){
+  if (ronda != 5) {
+    //Validar que existan usuarios activos en la ronda
+    var sw = false;
+    for (var i = 0; i < numjugadores; i++) {
+      if (jugadoresArray[i].preguntas[ronda] == false){
+        sw = true;
+        break;
+      }
+    }
+ 
+    if(sw) {
+      do{
+        turno = Math.floor((Math.random() * numJugadores)); // Numero random entre 0 y numjugadores
+      }while(jugadoresArray[turno].preguntas[ronda] == true)
+      jugadoresArray[turno].preguntas[ronda] = false;
+    }else
+      ronda+=1;
+  }else
 }
 
 //MAP JS
