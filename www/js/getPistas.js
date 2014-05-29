@@ -1,5 +1,7 @@
 var PistaLat;
 var PistaLong;
+var jugadoresArray = JSON.parse(localStorage.getItem("jugadoresArray"));
+var numJugadores = jugadoresArray.length;
 
 window.onload = function(){
 	showPista();
@@ -23,6 +25,7 @@ function clearPregunta(){
   $('#repuesta_c_pregunta').html("");
   $('#repuesta_d_pregunta').html("");
   $('#repuesta_correcta_pregunta').html("");
+  $('#nivel_pregunta').html("");
 }
 
 function showPista(){
@@ -41,9 +44,12 @@ function showPista(){
 }
 
 function showPregunta(){
+
+  if (true){
+
   $.ajax({  //create an ajax request to load_page.php
     type: "GET",
-    url: "http://uninorterally1.hol.es/getPregunta.php",             
+    url: "http://uninorterally1.hol.es/getPregunta.php?nivelpregunta=1",             
     dataType: "html",   //expect html to be returned                
     success: function(response){                    
       //alert(response);
@@ -53,17 +59,22 @@ function showPregunta(){
       $('#texto1_pregunta').html(pregunta.texto_1);
       $('#texto2_pregunta').html(pregunta.texto_2);
       $('#texto3_pregunta').html(pregunta.texto_3);
-      if(pregunta.imagen_1!=null){
-      $('#imagen1_pregunta').html("<img src=img/"+pregunta.imagen_1+">");}
-       if(pregunta.imagen_2!=null){
-      $('#imagen2_pregunta').html("<img src=img/"+pregunta.imagen_2+">");}
+      if(pregunta.imagen_1!=null) {
+        $('#imagen1_pregunta').html("<img src=img/"+pregunta.imagen_1+">");
+      }
+      if(pregunta.imagen_2!=null) {
+        $('#imagen2_pregunta').html("<img src=img/"+pregunta.imagen_2+">");
+      }
       $('#repuesta_a_pregunta').html("A. "+pregunta.respuesta_a);
       $('#repuesta_b_pregunta').html("B. "+pregunta.respuesta_b);
       $('#repuesta_c_pregunta').html("C. "+pregunta.respuesta_c);
       $('#repuesta_d_pregunta').html("D. "+pregunta.respuesta_d);
       $('#repuesta_correcta_pregunta').html(pregunta.respuesta_correcta);
-    }
+      $('#nivel_pregunta').html("NIVEL PREGUNTA: "+jugadoresArray[0].nombre);
+      }
+
   });
+  }
 }
 
 //MAP JS

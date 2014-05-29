@@ -34,7 +34,7 @@ $('#button2').click(function(){
 	if(isNumber(tempCodigo)) {
 		jugadoresArray.push({
 			codigo:tempCodigo,
-			email:tempEmail,
+			nombre:tempEmail,
 			preguntas:[false, false, false, false, false]
 		});
 		cont+=1;
@@ -43,9 +43,7 @@ $('#button2').click(function(){
 			$('#userinfoheader').html("<b>Informacion para Usuario "+(cont+1)+"</b>");
 			$('#dataFromUsers_form')[0].reset();
 		}else { 
-			(function (global) {
-				global.localStorage.setItem("jugadoresArray", jugadoresArray);
-			}(window));
+			localStorage.setItem("jugadoresArray", JSON.stringify(jugadoresArray));
 			window.location.replace("map.html");
 		}
 	}else{
