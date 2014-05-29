@@ -21,6 +21,12 @@ $('#llegue').click(function(){
   showPregunta();
 })
 
+$('#botonpista').click(function(){
+  showPista();
+  clearPregunta();
+  showPregunta();
+})
+
 function clearPregunta(){
   $('#titulo_pregunta').html("");
   $('#texto1_pregunta').html("");
@@ -197,6 +203,7 @@ function generarNivel(){
               presionoC = true;
               presionoD = true;
               clearPregunta();
+              $.mobile.navigate("#pageone", {transition: "slide"});
               i=1;
               if (numeroRondas==1){
                 alert("YA PASARON LAS X RONDAS. SE HA TERMINADO");
