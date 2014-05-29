@@ -1,9 +1,25 @@
 <?php
 	include("conection.php"); 
 	$numpregunta=0;
-	if(isset($_GET['numpregunta'])) {
+	$nivelpregunta=0;
+
+	if(isset($_GET['numpregunta'])){
 		$numpregunta= $_GET[numpista];
-	}else {
+	}else{
+		$numpregunta = rand(1,75);
+	}
+
+	if(isset($_GET['nivelpregunta'])){
+		$nivelpregunta= $_GET[nivelpregunta];
+		switch ($nivelpregunta) {
+			case 1: $numpregunta = rand(1,7); break;
+			case 2: $numpregunta = rand(8,24); break;
+			case 3: $numpregunta = rand(25,52); break;
+			case 4: $numpregunta = rand(53,65); break;
+			case 5: $numpregunta = rand(66,75); break;
+			
+		}
+	}else{
 		$numpregunta = rand(1,75);
 	}
 

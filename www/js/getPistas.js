@@ -74,6 +74,9 @@ function showPregunta(){
       $('#repuesta_d_pregunta').html("D. "+pregunta.respuesta_d);
       $('#repuesta_correcta_pregunta').html(pregunta.respuesta_correcta);
       $('#nivel_pregunta').html("NIVEL PREGUNTA: "+turno);
+
+      //Variable para verificacion de respuesta. Elias la usa
+      correcta=(pregunta.respuesta_correcta);
       }
 
   });
@@ -100,6 +103,162 @@ function generarTurno(){
       ronda+=1;
   }else
 }
+
+//Seccion de preguntas - Elias //
+
+//B¡VARIABLES NECESARIAS PARA VARIAS COSAS____________________________________________________-
+        var correcta;
+        var numero_jugadores=4;
+        var i=1;
+
+        var numeroRondas= 3;
+        var arrayViejo = new Array(numero_jugadores);
+        var arrayNuevo = new Array(numero_jugadores);
+        var largo = (numero_jugadores + 1);
+        for ( var l = 1; l < largo; l++) {
+          arrayViejo[l]= 0;
+        }
+        var puntos = new Array(numero_jugadores);
+        for ( var l = 1; l < largo; l++) {
+          puntos[l]= 0;
+        }
+
+     
+
+        var rondaActual = 1;
+
+       var multidimencional = new Array(new Array (0,0,0,0), new Array(0,0,0,0),new Array(0,0,0,0))
+
+
+
+        var presionoA = true;
+        var presionoB = true;
+        var presionoC = true;
+        var presionoD = true;
+
+
+//AQUI COMIENZA EL DESMADRE__________________________________________________________________________________-
+        function verificar(respuesta){
+          if(correcta==respuesta){
+            alert("Respuesta Correcta para el jugador: "+i+"");
+            if(i<numero_jugadores){
+              puntos[i] = (puntos[i] + 1) ;
+              i=i+1;
+              presionoA = true;
+              presionoB = true;
+              presionoC = true;
+              presionoD = true;
+              showPregunta();
+
+            }else{//ESTO SUCEDE SI LA RESPUESTA ES CORRECTA Y ADEMAS ES EL ULTIMO JUGADOR____________________________________________
+              puntos[i] = (puntos[i] + 1) ;
+              alert("Ya han participado los: "+i+" jugadores. SIGUIENTE PISTA :)");
+
+              //Puntos sumados en cada ronda
+              alert("PUNTOS TOTAL: "+puntos[1]+","+puntos[2]+","+puntos[3]+","+puntos[4]+".");
+              
+
+              for ( var j = 1; j < largo; j++) {
+                arrayNuevo[j] = puntos[j] - arrayViejo[j];
+              }
+
+              for ( var p = 1; p < largo; p++) {
+                arrayViejo[p] = puntos[p];
+              
+              
+              }
+
+              //Puntos por cada ronda
+              alert("Puntos conseguidos en la ronda: "+arrayNuevo[1]+","+arrayNuevo[2]+","+arrayNuevo[3]+","+arrayNuevo[4]+".");
+              
+              for(s=0;s<numero_jugadores;s++){
+                multidimencional[rondaActual-1][s]=arrayNuevo[s+1];
+              }
+              alert(""+multidimencional[0]+"___"+multidimencional[1]+"___"+multidimencional[2]+"");
+              rondaActual= rondaActual + 1;
+              //alert(rondaActual);
+
+
+              presionoA = true;
+              presionoB = true;
+              presionoC = true;
+              presionoD = true;
+              clearPregunta();
+              i=1;
+              if (numeroRondas==1){
+                alert("YA PASARON LAS X RONDAS. SE HA TERMINADO");
+              }else{
+                showPista();
+              }
+              numeroRondas--;
+
+            }
+          }else{//A PARTIR DE AQUI SOLO SUCEDE SI LA RESPUESTA QUE DIO EL WEY ES INCORRECTA_________________________________________
+           if(respuesta == "a"){
+
+            if (presionoA == false){
+              alert("Ya intentaste con esa respuesta");
+            }else{
+              presionoA = false;
+              alert("Respuesta Incorrecta para el jugador: "+i+"");
+              puntos[i] = (puntos[i] - 1) ;
+            } 
+          }
+          
+          if(respuesta == "b"){
+
+            if (presionoB == false){
+              alert("Ya intentaste con esa respuesta");
+            }else{
+              presionoB = false;
+              alert("Respuesta Incorrecta para el jugador: "+i+"");
+              puntos[i] = (puntos[i] - 1) ;
+            } 
+          }
+
+          if(respuesta == "c"){
+
+            if (presionoC == false){
+              alert("Ya intentaste con esa respuesta");
+            }else{
+              presionoC = false;
+              alert("Respuesta Incorrecta para el jugador: "+i+"");
+              puntos[i] = (puntos[i] - 1) ;
+            } 
+          }
+
+          if(respuesta == "d"){
+
+            if (presionoD == false){
+              alert("Ya intentaste con esa respuesta");
+            }else{
+              presionoD = false;
+              alert("Respuesta Incorrecta para el jugador: "+i+"");
+              puntos[i] = (puntos[i] - 1) ;
+            } 
+          }
+
+
+
+
+        }
+      }
+      $('#repuesta_a_pregunta').click(function(){
+        verificar("a");
+      })
+
+      $('#repuesta_b_pregunta').click(function(){
+        verificar("b");
+
+      })
+      $('#repuesta_c_pregunta').click(function(){
+        verificar("c");
+
+      })
+      $('#repuesta_d_pregunta').click(function(){
+        verificar("d");
+      })
+
 
 //MAP JS
 

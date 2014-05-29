@@ -46,7 +46,7 @@ function showPista(){
 
         }); 
   }
-  var correcta;
+  
 
   function showPregunta(){
     $.ajax({    //create an ajax request to load_page.php
@@ -79,7 +79,9 @@ function showPista(){
 
        });
 }
+
 //B¡VARIABLES NECESARIAS PARA VARIAS COSAS____________________________________________________-
+        var correcta;
         var numero_jugadores=4;
         var i=1;
 
