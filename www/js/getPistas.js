@@ -141,7 +141,7 @@ for ( var l = 1; l < largo; l++) {
 
 var puntos = new Array(numero_jugadores);
         
-for ( var l = 1; l < largo; l++) {
+for ( var l = 0; l < numJugadores; l++) {
   puntos[l]= 0;
 }
 
@@ -169,9 +169,13 @@ function verificar(respuesta) {
       puntos[turnoJugador] = (puntos[turnoJugador] + 1) ;
       alert("Ya han participado los: "+numJugadores+" jugadores. SIGUIENTE PISTA! :)");
 
-      /*Puntos sumados en cada ronda
-      alert("PUNTOS TOTAL: "+puntos[0]+","+puntos[1]+","+puntos[2]+","+puntos[3]+".");        
-
+      //Puntos sumados en cada ronda
+      var s = "";
+      for (var i = 0; i < numJugadores; i++) {
+        s += puntos[i]+"  ";
+      }
+      alert("PUNTOS TOTAL: "+s);        
+      /*
       for ( var j = 1; j < largo; j++) {
         arrayNuevo[j] = puntos[j] - arrayViejo[j];
       }
@@ -196,7 +200,8 @@ function verificar(respuesta) {
       presionoC = true;
       presionoD = true;
       clearPregunta();
-
+      
+      setTimeout(f, 1000);
       $.mobile.navigate("#pageone", {transition: "slide"});
 
       if (ronda==5){
@@ -213,8 +218,8 @@ function verificar(respuesta) {
         alert("Ya intentaste con esa respuesta.");
       }else {
         presionoA = false;
-        alert("Respuesta Incorrecta para el jugador: "+i+"");
-        puntos[i] = (puntos[i] - 1) ;
+        alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
+        puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
       } 
     }
     
@@ -223,8 +228,8 @@ function verificar(respuesta) {
         alert("Ya intentaste con esa respuesta");
       }else {
         presionoB = false;
-        alert("Respuesta Incorrecta para el jugador: "+i+"");
-        puntos[i] = (puntos[i] - 1) ;
+        alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
+        puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
       } 
     }
 
@@ -233,8 +238,8 @@ function verificar(respuesta) {
         alert("Ya intentaste con esa respuesta");
       }else {
         presionoC = false;
-        alert("Respuesta Incorrecta para el jugador: "+i+"");
-        puntos[i] = (puntos[i] - 1) ;
+        alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
+        puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
       } 
     }
 
@@ -243,8 +248,8 @@ function verificar(respuesta) {
         alert("Ya intentaste con esa respuesta");
       }else {
         presionoD = false;
-        alert("Respuesta Incorrecta para el jugador: "+i+"");
-        puntos[i] = (puntos[i] - 1) ;
+        alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
+        puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
       } 
     }
   }
