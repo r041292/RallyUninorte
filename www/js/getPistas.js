@@ -95,6 +95,24 @@ function showPregunta(){
   }
 } 
 
+function enviarRespuesta(codigo_est, nombre_est, nivel_pregunta, num_pregunta, titulo_pregunta, puntos_pregunta){
+  $.ajax({  
+      type: "GET",
+      url: "http://uninorterally1.hol.es/getEnviarRespuesta.php?codigo_est="+codigo_est+"&nombre_est="+nombre_est+"&nivel_pregunta="+nivel_pregunta+"&num_pregunta="+num_pregunta+"&tiempo_respuesta="+tiempo_respuesta+"&puntos_pregunta="+puntos_pregunta;
+      dataType: "html",   //expect html to be returned                
+      success: function(response){                    
+        var respuesta = jQuery.parseJSON(response);
+          if(respuesta=="ok"){
+            //Resultados enviados : )
+          }else{
+            //Error al enviar los resultados
+          }
+      }
+
+
+  });
+}
+
 function generarTurno() {
   console.log(ronda);
   if (ronda < 6 ) {
@@ -201,7 +219,7 @@ function verificar(respuesta) {
       presionoD = true;
       clearPregunta();
       
-      setTimeout(f, 1000);
+      setTimeout(f, 2000);
       $.mobile.navigate("#pageone", {transition: "slide"});
 
       if (ronda==5){
