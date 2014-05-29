@@ -7,6 +7,8 @@ var turnoJugador = -1;
 var ronda = 1;
 var level = 1;
 var fin = false;
+var clock=0;
+var clockInterval;
 
 window.onload = function(){
 	showPista();
@@ -288,6 +290,20 @@ $('#repuesta_c_pregunta').click(function(){
 $('#repuesta_d_pregunta').click(function(){
   verificar("d");
 })
+
+
+//Cronometro
+function startClock(){
+  clockInterval = setInterval(OneSecondPassed, 1000);
+}
+
+function stopClock(){
+  clearInterval(window.clockInterval);
+}
+
+function OneSecondPassed(){
+  clock+=1;
+}
 
 
 //MAP JS
