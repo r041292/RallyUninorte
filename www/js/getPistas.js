@@ -1,5 +1,6 @@
 var PistaLat;
 var PistaLong;
+var idGrupo=localStorage.getItem("idGrupo");
 var jugadoresArray = JSON.parse(localStorage.getItem("jugadoresArray"));
 var numJugadores = jugadoresArray.length;
 var ordenTurno = new Array();
@@ -97,10 +98,10 @@ function showPregunta(){
   }
 } 
 
-function enviarRespuesta(codigo_est, nombre_est, nivel_pregunta, num_pregunta, titulo_pregunta, puntos_pregunta){
+function enviarRespuesta(codigo_est, nombre_est, grupo_est, nivel_pregunta, num_pregunta, titulo_pregunta, puntos_pregunta){
   $.ajax({  
       type: "GET",
-      url: "http://uninorterally1.hol.es/getEnviarRespuesta.php?codigo_est="+codigo_est+"&nombre_est="+nombre_est+"&nivel_pregunta="+nivel_pregunta+"&num_pregunta="+num_pregunta+"&tiempo_respuesta="+tiempo_respuesta+"&puntos_pregunta="+puntos_pregunta;
+      url: "http://uninorterally1.hol.es/getEnviarRespuesta.php?codigo_est="+codigo_est+"&nombre_est="+nombre_est+"&grupo_est="+grupo_est+"&nivel_pregunta="+nivel_pregunta+"&num_pregunta="+num_pregunta+"&tiempo_respuesta="+tiempo_respuesta+"&puntos_pregunta="+puntos_pregunta,
       dataType: "html",   //expect html to be returned                
       success: function(response){                    
         var respuesta = jQuery.parseJSON(response);

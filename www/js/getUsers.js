@@ -43,6 +43,9 @@ $('#button2').click(function(){
 			$('#userinfoheader').html("<b>Informacion para Usuario "+(cont+1)+"</b>");
 			$('#dataFromUsers_form')[0].reset();
 		}else { 
+			var d = new Date();
+			var idGrupo = d.getTime() + Math.floor((Math.random() * 5000) + 1);
+			localStorage.setItem("idGrupo", idGrupo);
 			localStorage.setItem("jugadoresArray", JSON.stringify(jugadoresArray));
 			window.location.replace("map.html");
 		}
