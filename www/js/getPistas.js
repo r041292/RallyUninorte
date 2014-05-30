@@ -28,6 +28,7 @@ $('#botonpista').click(function(){
   showPista();
   clearPregunta();
   showPregunta();
+  startClock();
 })
 
 function clearPregunta(){
@@ -91,6 +92,8 @@ function showPregunta(){
 
         //Variable para verificacion de respuesta. Elias la usa
         correcta=(pregunta.respuesta_correcta);
+        nivelPreguntaActual = pregunta.nivel_pregunta;  
+        numPreguntaActual = pregunta.num_pregunta;
       }
     });
   }else {
@@ -98,17 +101,17 @@ function showPregunta(){
   }
 } 
 
-function enviarRespuesta(codigo_est, nombre_est, grupo_est, nivel_pregunta, num_pregunta, titulo_pregunta, puntos_pregunta){
+function enviarRespuesta(codigo_est, nombre_est, grupo_est, nivel_pregunta, num_pregunta, tiempo_respuesta, puntos_pregunta){
   $.ajax({  
       type: "GET",
       url: "http://uninorterally1.hol.es/getEnviarRespuesta.php?codigo_est="+codigo_est+"&nombre_est="+nombre_est+"&grupo_est="+grupo_est+"&nivel_pregunta="+nivel_pregunta+"&num_pregunta="+num_pregunta+"&tiempo_respuesta="+tiempo_respuesta+"&puntos_pregunta="+puntos_pregunta,
       dataType: "html",   //expect html to be returned                
       success: function(response){                    
-        var respuesta = jQuery.parseJSON(response);
+        var respuesta = response;
           if(respuesta=="ok"){
-            //Resultados enviados : )
+            console.log("Resultados enviados para jugador: "+nombre_est);
           }else{
-            //Error al enviar los resultados
+            console.log("Error al enviar los resultados");
           }
       }
 
@@ -117,7 +120,7 @@ function enviarRespuesta(codigo_est, nombre_est, grupo_est, nivel_pregunta, num_
 }
 
 function generarTurno() {
-  console.log(ronda);
+  console.log("Ronda: "+ronda);
   if (ronda < 6 ) {
     if(!(ronda == 5 && ordenTurno.length == 0)){
       if(ordenTurno.length == 0) { //Si faltan usuarios por jugar la ronda
@@ -150,7 +153,9 @@ function generarNivel() {
 var correcta;
 var numero_jugadores=numJugadores;
 var i=1;
-
+var tiempoRespuesta;
+var nivelPreguntaActual;
+var numPreguntaActual;
 var numeroRondas= 5;
 var arrayViejo = new Array(numero_jugadores);
 var arrayNuevo = new Array(numero_jugadores);
@@ -167,7 +172,6 @@ for ( var l = 0; l < numJugadores; l++) {
 }
 
 var rondaActual = 1;
-var multidimencional = new Array(new Array (0,0,0,0), new Array(0,0,0,0), new Array(0,0,0,0));
 var presionoA = true;
 var presionoB = true;
 var presionoC = true;
@@ -178,6 +182,12 @@ var presionoD = true;
 function verificar(respuesta) {
   if(correcta==respuesta) {
     alert("Respuesta Correcta para el jugador: "+turnoJugador+"");
+    tiempoRespuesta = clock;
+    //console.log("Tiempo de respuesta: "+ tiempoRespuesta);
+    stopClock();
+
+    
+    enviarRespuesta(jugadoresArray[turnoJugador].codigo,jugadoresArray[turnoJugador].nombre,idGrupo,nivelPreguntaActual, numPreguntaActual, tiempoRespuesta, (puntos[turnoJugador]+1));
 
     if(ordenTurno.length!=0) {
       puntos[turnoJugador] = (puntos[turnoJugador] + 1) ;
@@ -186,7 +196,8 @@ function verificar(respuesta) {
       presionoC = true;
       presionoD = true;
       showPregunta();
-    }else {//ESTO SUCEDE SI LA RESPUESTA ES CORRECTA Y ADEMAS ES EL ULTIMO JUGADOR____________________________________________
+      startClock();
+    }else {//Respuesta correcta y es el ultimo jugador
       puntos[turnoJugador] = (puntos[turnoJugador] + 1) ;
       alert("Ya han participado los: "+numJugadores+" jugadores. SIGUIENTE PISTA! :)");
 
@@ -196,26 +207,7 @@ function verificar(respuesta) {
         s += puntos[i]+"  ";
       }
       alert("PUNTOS TOTAL: "+s);        
-      /*
-      for ( var j = 1; j < largo; j++) {
-        arrayNuevo[j] = puntos[j] - arrayViejo[j];
-      }
-
-      for ( var p = 1; p < largo; p++) {
-        arrayViejo[p] = puntos[p];      
-      }
-
-      //Puntos por cada ronda
-      alert("Puntos conseguidos en la ronda: "+arrayNuevo[1]+","+arrayNuevo[2]+","+arrayNuevo[3]+","+arrayNuevo[4]+".");
-      
-      for(s=0; s<numero_jugadores; s++) {
-        multidimencional[rondaActual-1][s]=arrayNuevo[s+1];
-      }
-
-      alert(""+multidimencional[0]+"___"+multidimencional[1]+"___"+multidimencional[2]+"");
-      rondaActual= rondaActual + 1;
-      //alert(rondaActual);*/
-
+     
       presionoA = true;
       presionoB = true;
       presionoC = true;
@@ -233,7 +225,7 @@ function verificar(respuesta) {
       }
       numeroRondas--;
     }
-  }else{//A PARTIR DE AQUI SOLO SUCEDE SI LA RESPUESTA QUE DIO EL WEY ES INCORRECTA_________________________________________
+  }else{//Respuesta Incorrecta
     if(respuesta == "a") {
       if(presionoA == false) {
         alert("Ya intentaste con esa respuesta.");
