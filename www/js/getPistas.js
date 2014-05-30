@@ -11,6 +11,14 @@ var fin = false;
 var clock=0;
 var clockInterval;
 
+//desbilitar back button
+document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        document.addEventListener("backbutton", function (e) {
+            e.preventDefault();
+        }, false );
+}
+
 window.onload = function(){
 	showPista();
   for (var i = 0; i < numJugadores; i++) {
