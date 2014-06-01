@@ -24,7 +24,7 @@
 		$puntos_pregunta=$_GET[puntos_pregunta];
 		
 
-		$query ="INSERT INTO `u927820083_db`.`Resultados` (`id_resultado`,`fecha`, `hora`, `codigo_est`, `nombre_est`,`grupo_est`, `nivel_pregunta`, `numero_pregunta`, `tiempo_respuesta`, `puntos_pregunta`) VALUES (NULL, '$codigo_est','$fecha','$hora', '$nombre_est','$grupo_est', '$nivel_pregunta', '$num_pregunta', '$tiempo_respuesta', '$puntos_pregunta');";
+		$query ="INSERT INTO `u927820083_db`.`Resultados` (`id_resultado`,`codigo_est`, `fecha`, `hora`, `nombre_est`,`grupo_est`, `nivel_pregunta`, `numero_pregunta`, `tiempo_respuesta`, `puntos_pregunta`) VALUES (NULL, '$codigo_est','$fecha','$hora', '$nombre_est','$grupo_est', '$nivel_pregunta', '$num_pregunta', '$tiempo_respuesta', '$puntos_pregunta');";
 	    //echo $query;
 		$result = mysql_query($query) or die(mysql_error());
 		echo "ok";
