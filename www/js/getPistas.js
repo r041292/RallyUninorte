@@ -30,7 +30,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 }
 
 window.onload = function(){
-  console.log("asdasd");
   showPista();
   for (var i = 0; i < numJugadores; i++) {
     ordenTurno[i] = i;
@@ -118,7 +117,9 @@ function showPregunta(){
       }
     });
   }else {
+
     $('#nivel_pregunta').html("JUEGO TERMINADO!");
+
   }
 } 
 
@@ -242,17 +243,26 @@ function verificar(respuesta) {
       $.mobile.navigate("#pageone", {transition: "slide"});
 
       if (ronda==5){
-        var resultados_string="";
-        alert("YA PASARON LAS 5 RONDAS. SE HA TERMINADO EL JUEGO");
-        for(var i=0;i < numJugadores; i++){
-          resultados_string+="El Puntaje para el jugador #"+(i)+" "+jugadoresArray[i].nombre+" es "+puntos[i]+"<br>";
-        }
-        $('#game_finished').html(resultados_string);
-        $.mobile.navigate("#pagethree", {transition: "slide"});
+        $.ajax({  //create an ajax request
+          type: "GET",
+          url: "http://uninorterally1.hol.es/sendMail.php?grupo="+idGrupo,             
+          dataType: "html",   //expect html to be returned                
+          success: function(){                    
+            var resultados_string="";
+            alert("YA PASARON LAS 5 RONDAS. SE HA TERMINADO EL JUEGO");
+            for(var i=0;i < numJugadores; i++){
+              resultados_string+="El Puntaje para el jugador #"+(i)+" "+jugadoresArray[i].nombre+" es "+puntos[i]+"<br>";
+            }
+            $('#game_finished').html(resultados_string);
+            $.mobile.navigate("#pagethree", {transition: "slide"});
+          }
+        }).fail(function(){
+          alert("Verifique su conexión a internet.");
+        });
       }else{
         showPista();
+        numeroRondas--;
       }
-      numeroRondas--;
     }
   }else{//Respuesta Incorrecta
     if(respuesta == "a") {
