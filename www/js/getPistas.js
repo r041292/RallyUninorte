@@ -10,6 +10,7 @@ var level = 1;
 var fin = false;
 var clock=0;
 var clockInterval;
+var online = navigator.onLine;
 
 //desbilitar back button
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -20,7 +21,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 }
 
 window.onload = function(){
-	showPista();
+  console.log("asdasd");
+  showPista();
   for (var i = 0; i < numJugadores; i++) {
     ordenTurno[i] = i;
   }
@@ -66,6 +68,8 @@ function showPista(){
       PistaLat = pista.lat;
       PistaLong = pista.long;
     }
+  }).fail(function() {
+    alert( "Verifique su conexión a internet." );
   }); 
 }
 
@@ -165,18 +169,14 @@ var tiempoRespuesta;
 var nivelPreguntaActual;
 var numPreguntaActual;
 var numeroRondas= 5;
-var arrayViejo = new Array(numero_jugadores);
+var puntosPasados = new Array(numero_jugadores);
 var arrayNuevo = new Array(numero_jugadores);
 var largo = (numero_jugadores + 1);
-
-for ( var l = 1; l < largo; l++) {
-  arrayViejo[l]= 0;
-}
-
 var puntos = new Array(numero_jugadores);
         
 for ( var l = 0; l < numJugadores; l++) {
   puntos[l]= 0;
+  puntosPasados[l]= 0;
 }
 
 var rondaActual = 1;
@@ -214,7 +214,14 @@ function verificar(respuesta) {
       for (var i = 0; i < numJugadores; i++) {
         s += puntos[i]+"  ";
       }
-      alert("PUNTOS TOTAL: "+s);        
+      alert("PUNTOS TOTAL: "+s);
+
+      s = "";
+      for (var i = 0; i < numJugadores; i++) {
+        s += puntos[i] - puntosPasados[i]+"  ";
+        puntosPasados[i] = puntos[i];
+      }
+      alert("PUNTOS EN LA RONDA: "+s);
      
       presionoA = true;
       presionoB = true;
