@@ -242,8 +242,13 @@ function verificar(respuesta) {
       $.mobile.navigate("#pageone", {transition: "slide"});
 
       if (ronda==5){
-        alert("YA PASARON LAS X RONDAS. SE HA TERMINADO");
-        window.location.replace("index.html");
+        var resultados_string="";
+        alert("YA PASARON LAS 5 RONDAS. SE HA TERMINADO EL JUEGO");
+        for(var i=0;i < numJugadores; i++){
+          resultados_string+="El Puntaje para el jugador #"+(i)+" "+jugadoresArray[i].nombre+" es "+puntos[i]+"<br>";
+        }
+        $('#game_finished').html(resultados_string);
+        $.mobile.navigate("#pagethree", {transition: "slide"});
       }else{
         showPista();
       }
