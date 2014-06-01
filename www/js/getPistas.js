@@ -11,6 +11,15 @@ var fin = false;
 var clock=0;
 var clockInterval;
 var online = navigator.onLine;
+var d = new Date();
+
+//generar fecha
+Date.prototype.yyyymmdd = function() {
+   var yyyy = this.getFullYear().toString();
+   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+   var dd  = this.getDate().toString();
+   return yyyy + (mm[1]?mm:"0"+mm[0]) + (dd[1]?dd:"0"+dd[0]); // padding
+  };
 
 //desbilitar back button
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -113,10 +122,10 @@ function showPregunta(){
   }
 } 
 
-function enviarRespuesta(codigo_est, nombre_est, grupo_est, nivel_pregunta, num_pregunta, tiempo_respuesta, puntos_pregunta){
+function enviarRespuesta(codigo_est, nombre_est, fecha, hora, grupo_est, nivel_pregunta, num_pregunta, tiempo_respuesta, puntos_pregunta){
   $.ajax({  
       type: "GET",
-      url: "http://uninorterally1.hol.es/getEnviarRespuesta.php?codigo_est="+codigo_est+"&nombre_est="+nombre_est+"&grupo_est="+grupo_est+"&nivel_pregunta="+nivel_pregunta+"&num_pregunta="+num_pregunta+"&tiempo_respuesta="+tiempo_respuesta+"&puntos_pregunta="+puntos_pregunta,
+      url: "http://uninorterally1.hol.es/getEnviarRespuesta.php?codigo_est="+codigo_est+"&fecha="+fecha+"&hora="+hora+"&nombre_est="+nombre_est+"&grupo_est="+grupo_est+"&nivel_pregunta="+nivel_pregunta+"&num_pregunta="+num_pregunta+"&tiempo_respuesta="+tiempo_respuesta+"&puntos_pregunta="+puntos_pregunta,
       dataType: "html",   //expect html to be returned                
       success: function(response){                    
         var respuesta = response;
@@ -195,7 +204,7 @@ function verificar(respuesta) {
     stopClock();
 
     
-    enviarRespuesta(jugadoresArray[turnoJugador].codigo,jugadoresArray[turnoJugador].nombre,idGrupo,nivelPreguntaActual, numPreguntaActual, tiempoRespuesta, (puntos[turnoJugador]+1));
+    enviarRespuesta(jugadoresArray[turnoJugador].codigo,jugadoresArray[turnoJugador].nombre,d.yyyymmdd(),d.getHours(),idGrupo,nivelPreguntaActual, numPreguntaActual, tiempoRespuesta, (puntos[turnoJugador]+1));
 
     if(ordenTurno.length!=0) {
       puntos[turnoJugador] = (puntos[turnoJugador] + 1) ;
