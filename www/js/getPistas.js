@@ -89,10 +89,22 @@ function checkConection(){
 
 function showPista(){
   checkConection();
-  while(checkConection_temp==false){
-    sleep(2000);
+  var primerintento=true;
+  var contador_intentos=1;
+  while(checkConection_temp==false && contador_intentos<100){
+    sleep(3000);
     checkConection();
     console.log(checkConection_temp);
+      if(primerintento){
+        primerintento=false;
+        alert("Tu conexión a internet esta fallando, favor verificar, cada 3 segundos la aplicacion verificara de nuevo.");
+      }
+      contador_intentos+=1;
+  }
+
+  if(contador_intentos==100){
+      alert("Lo siento, el juego se reiniciara");
+      window.location.replace("index.html");
   }
 
   $.ajax({  //create an ajax request
@@ -256,14 +268,14 @@ function verificar(respuesta) {
         for (var i = 0; i < numJugadores; i++) {
           s += puntos[i]+"  ";
         }
-        alert("PUNTOS TOTAL: "+s);
+        //alert("PUNTOS TOTAL: "+s);
 
         s = "";
         for (var i = 0; i < numJugadores; i++) {
           s += puntos[i] - puntosPasados[i]+"  ";
           puntosPasados[i] = puntos[i];
         }
-        alert("PUNTOS EN LA RONDA: "+s);
+        //alert("PUNTOS EN LA RONDA: "+s);
        
         presionoA = true;
         presionoB = true;
