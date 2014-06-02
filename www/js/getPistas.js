@@ -91,7 +91,7 @@ function showPista(){
   checkConection();
   var primerintento=true;
   var contador_intentos=1;
-  while(checkConection_temp==false && contador_intentos<100){
+  while(checkConection_temp==false){
     sleep(3000);
     checkConection();
     console.log(checkConection_temp);
