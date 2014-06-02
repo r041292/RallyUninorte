@@ -1,23 +1,35 @@
+#texto1_pregunta, #texto2_pregunta, #texto3_pregunta{
+	text-align: justify
+}
+
+#repuesta_correcta_pregunta{
+	display: none;
+}
+
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-	div,p{
+	div,p,.ui-btn{
 		font-size: 1.1em;
+		text-align: center;
 	}
 }
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px){
-	div,p{
+	div,p,.ui-btn{
 		font-size: 1.15em;
+		text-align: center;
 	}
 }
 
 @media only screen and (min-device-width: 720px) and (max-device-width: 1280px) and (orientation: landscape) {
-	div,p{
+	div,p,.ui-btn{
 		font-size: 1.15em;
+		text-align: center;
 	}
 }
 
 @media only screen and (min-device-width: 1080px) and (max-device-width: 1920px) and (orientation: landscape) {
-	div,p{
+	div,p,.ui-btn{
 		font-size: 1.15em;
+		text-align: center;
 	}
 }
