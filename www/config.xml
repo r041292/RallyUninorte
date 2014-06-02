@@ -3,17 +3,17 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.helloworld"
-        version   = "1.0.0">
+        id        = "com.uninorterally.game"
+        version   = "1.0.1">
 
     <name>Uninorte Rally 1</name>
 
     <description>
-        Hello this an app that doesn't have a purpose really....
+        This is an app for a class at Uninorte(Barranquilla, Colombia).
     </description>
 
     <author href="http://phonegap.com" email="uninorterally1@outlook.com">
-        TEAM MAPUTA[?]
+        Elias Gutierrez, Luis Mendoza & Rubiel Velasquez
     </author>
 
     <!--
