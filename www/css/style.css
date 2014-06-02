@@ -6,6 +6,18 @@
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px){
 	div,p{
-		font-size: 1.2em;
+		font-size: 1.15em;
+	}
+}
+
+@media only screen and (min-device-width: 720px) and (max-device-width: 1280px) and (orientation: landscape) {
+	div,p{
+		font-size: 1.15em;
+	}
+}
+
+@media only screen and (min-device-width: 1080px) and (max-device-width: 1920px) and (orientation: landscape) {
+	div,p{
+		font-size: 1.15em;
 	}
 }
