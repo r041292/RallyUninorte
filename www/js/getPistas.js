@@ -77,7 +77,7 @@ function sleep(milliseconds) {
 function checkConection(){
   $.ajax({  //create an ajax request
     type: "GET",
-    url: "http://uninorterally1.hol.es/getPista_Lugar.php",             
+    url: "http://uninorterally1.hol.es/scriptBobo.php",             
     dataType: "html",   //expect html to be returned                
     success: function(response){                    
         checkConection_temp = true;
@@ -94,7 +94,7 @@ function showPista(){
     checkConection();
     console.log(checkConection_temp);
   }
-  
+
   $.ajax({  //create an ajax request
     type: "GET",
     url: "http://uninorterally1.hol.es/getPista_Lugar.php",             
@@ -228,113 +228,119 @@ var presionoD = true;
 
 //AQUI COMIENZA EL DESMADRE__________________________________________________________________________________-
 function verificar(respuesta) {
-  if(correcta==respuesta) {
-    alert("Respuesta Correcta para el jugador: "+turnoJugador+"");
-    tiempoRespuesta = clock;
-    //console.log("Tiempo de respuesta: "+ tiempoRespuesta);
-    stopClock();
+  checkConection();
+  if(checkConection_temp==true){
+    if(correcta==respuesta) {
+      alert("Respuesta Correcta para el jugador: "+turnoJugador+"");
+      tiempoRespuesta = clock;
+      //console.log("Tiempo de respuesta: "+ tiempoRespuesta);
+      stopClock();
 
-    
-    enviarRespuesta(jugadoresArray[turnoJugador].codigo,jugadoresArray[turnoJugador].nombre,d.yyyymmdd(),d.getHours(),idGrupo,nivelPreguntaActual, numPreguntaActual, tiempoRespuesta, (puntos[turnoJugador]+1));
-
-    if(ordenTurno.length!=0) {
-      puntos[turnoJugador] = (puntos[turnoJugador] + 1) ;
-      presionoA = true;
-      presionoB = true;
-      presionoC = true;
-      presionoD = true;
-      showPregunta();
-      startClock();
-    }else {//Respuesta correcta y es el ultimo jugador
-      puntos[turnoJugador] = (puntos[turnoJugador] + 1) ;
-      alert("Ya han participado los: "+numJugadores+" jugadores. SIGUIENTE PISTA! :)");
-
-      //Puntos sumados en cada ronda
-      var s = "";
-      for (var i = 0; i < numJugadores; i++) {
-        s += puntos[i]+"  ";
-      }
-      alert("PUNTOS TOTAL: "+s);
-
-      s = "";
-      for (var i = 0; i < numJugadores; i++) {
-        s += puntos[i] - puntosPasados[i]+"  ";
-        puntosPasados[i] = puntos[i];
-      }
-      alert("PUNTOS EN LA RONDA: "+s);
-     
-      presionoA = true;
-      presionoB = true;
-      presionoC = true;
-      presionoD = true;
-      clearPregunta();
       
-      setTimeout(f, 2000);
-      $.mobile.navigate("#pageone", {transition: "slide"});
+      enviarRespuesta(jugadoresArray[turnoJugador].codigo,jugadoresArray[turnoJugador].nombre,d.yyyymmdd(),d.getHours(),idGrupo,nivelPreguntaActual, numPreguntaActual, tiempoRespuesta, (puntos[turnoJugador]+1));
 
-      if (ronda==5){
-        $.ajax({  //create an ajax request
-          type: "GET",
-          url: "http://uninorterally1.hol.es/sendMail.php?grupo="+idGrupo,             
-          dataType: "html",   //expect html to be returned                
-          success: function(){                    
-            var resultados_string="";
-            alert("YA PASARON LAS 5 RONDAS. SE HA TERMINADO EL JUEGO");
-            for(var i=0;i < numJugadores; i++){
-              resultados_string+="El Puntaje para el jugador #"+(i)+" "+jugadoresArray[i].nombre+" es "+puntos[i]+"<br>";
+      if(ordenTurno.length!=0) {
+        puntos[turnoJugador] = (puntos[turnoJugador] + 1) ;
+        presionoA = true;
+        presionoB = true;
+        presionoC = true;
+        presionoD = true;
+        showPregunta();
+        startClock();
+      }else {//Respuesta correcta y es el ultimo jugador
+        puntos[turnoJugador] = (puntos[turnoJugador] + 1) ;
+        alert("Ya han participado los: "+numJugadores+" jugadores. SIGUIENTE PISTA! :)");
+
+        //Puntos sumados en cada ronda
+        var s = "";
+        for (var i = 0; i < numJugadores; i++) {
+          s += puntos[i]+"  ";
+        }
+        alert("PUNTOS TOTAL: "+s);
+
+        s = "";
+        for (var i = 0; i < numJugadores; i++) {
+          s += puntos[i] - puntosPasados[i]+"  ";
+          puntosPasados[i] = puntos[i];
+        }
+        alert("PUNTOS EN LA RONDA: "+s);
+       
+        presionoA = true;
+        presionoB = true;
+        presionoC = true;
+        presionoD = true;
+        clearPregunta();
+        
+        setTimeout(f, 2000);
+        $.mobile.navigate("#pageone", {transition: "slide"});
+
+        if (ronda==5){
+          $.ajax({  //create an ajax request
+            type: "GET",
+            url: "http://uninorterally1.hol.es/sendMail.php?grupo="+idGrupo,             
+            dataType: "html",   //expect html to be returned                
+            success: function(){                    
+              var resultados_string="";
+              alert("YA PASARON LAS 5 RONDAS. SE HA TERMINADO EL JUEGO");
+              for(var i=0;i < numJugadores; i++){
+                resultados_string+="El Puntaje para el jugador #"+(i)+" "+jugadoresArray[i].nombre+" es "+puntos[i]+"<br>";
+              }
+              $('#game_finished').html(resultados_string);
+              $.mobile.navigate("#pagethree", {transition: "slide"});
             }
-            $('#game_finished').html(resultados_string);
-            $.mobile.navigate("#pagethree", {transition: "slide"});
-          }
-        }).fail(function(){
-          alert("Verifique su conexión a internet.");
-        });
-      }else{
-        showPista();
-        numeroRondas--;
+          }).fail(function(){
+            alert("Verifique su conexión a internet.");
+          });
+        }else{
+          showPista();
+          numeroRondas--;
+        }
+      }
+    }else{//Respuesta Incorrecta
+      if(respuesta == "a") {
+        if(presionoA == false) {
+          alert("Ya intentaste con esa respuesta.");
+        }else {
+          presionoA = false;
+          alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
+          puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
+        } 
+      }
+      
+      if(respuesta == "b") {
+        if (presionoB == false) {
+          alert("Ya intentaste con esa respuesta");
+        }else {
+          presionoB = false;
+          alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
+          puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
+        } 
+      }
+
+      if(respuesta == "c") {
+        if (presionoC == false) {
+          alert("Ya intentaste con esa respuesta");
+        }else {
+          presionoC = false;
+          alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
+          puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
+        } 
+      }
+
+      if(respuesta == "d") {
+        if (presionoD == false) {
+          alert("Ya intentaste con esa respuesta");
+        }else {
+          presionoD = false;
+          alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
+          puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
+        } 
       }
     }
-  }else{//Respuesta Incorrecta
-    if(respuesta == "a") {
-      if(presionoA == false) {
-        alert("Ya intentaste con esa respuesta.");
-      }else {
-        presionoA = false;
-        alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
-        puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
-      } 
-    }
-    
-    if(respuesta == "b") {
-      if (presionoB == false) {
-        alert("Ya intentaste con esa respuesta");
-      }else {
-        presionoB = false;
-        alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
-        puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
-      } 
-    }
+}else{
+  alert("No hay conexión a internet");
+}
 
-    if(respuesta == "c") {
-      if (presionoC == false) {
-        alert("Ya intentaste con esa respuesta");
-      }else {
-        presionoC = false;
-        alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
-        puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
-      } 
-    }
-
-    if(respuesta == "d") {
-      if (presionoD == false) {
-        alert("Ya intentaste con esa respuesta");
-      }else {
-        presionoD = false;
-        alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
-        puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
-      } 
-    }
-  }
 }
 
 $('#repuesta_a_pregunta').click(function(){
