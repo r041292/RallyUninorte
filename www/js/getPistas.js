@@ -150,7 +150,7 @@ function showPregunta(){
         $('#repuesta_c_pregunta').html("C. "+pregunta.respuesta_c);
         $('#repuesta_d_pregunta').html("D. "+pregunta.respuesta_d);
         $('#repuesta_correcta_pregunta').html(pregunta.respuesta_correcta);
-        $('#nivel_pregunta').html("TURNO: "+turnoJugador+"Nombre: "+jugadoresArray[turnoJugador].nombre+" RONDA: "+ronda+" LEVEL: "+level);
+        $('#nivel_pregunta').html("TURNO: "+turnoJugador+" Nombre: "+jugadoresArray[turnoJugador].nombre+" RONDA: "+ronda+" LEVEL: "+level);
 
         //Variable para verificacion de respuesta. Elias la usa
         correcta=(pregunta.respuesta_correcta);

@@ -1,0 +1,11 @@
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+	div,p{
+		font-size: 1.1em;
+	}
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px){
+	div,p{
+		font-size: 1.2em;
+	}
+}
