@@ -41,7 +41,7 @@ $('#button2').click(function(){
 			$('#dataFromUsers_form')[0].reset();
 		}else { 
 			var d = new Date();
-			var idGrupo = d.getTime() + Math.floor((Math.random() * 5000) + 1);
+			var idGrupo = d.getTime() + "" + Math.floor((Math.random() * 5000) + 1);
 			localStorage.setItem("idGrupo", idGrupo);
 			localStorage.setItem("jugadoresArray", JSON.stringify(jugadoresArray));
 			window.location.replace("map.html");

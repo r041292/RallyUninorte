@@ -430,7 +430,7 @@ function initialize() {
   });
 
   //Location Changed
-  var options = { timeout: 2000 };
+  var options = { timeout: 10000 };
   watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
   setTimeout(f, 1000);
 }
