@@ -12,6 +12,7 @@ var clock=0;
 var clockInterval;
 var online = navigator.onLine;
 var d = new Date();
+var checkConection_temp;
 
 //generar fecha
 Date.prototype.yyyymmdd = function() {
@@ -64,7 +65,36 @@ function clearPregunta(){
   $('#nivel_pregunta').html("");
 }
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+function checkConection(){
+  $.ajax({  //create an ajax request
+    type: "GET",
+    url: "http://uninorterally1.hol.es/getPista_Lugar.php",             
+    dataType: "html",   //expect html to be returned                
+    success: function(response){                    
+        checkConection_temp = true;
+    },async:   false
+  }).fail(function() {
+    checkConection_temp = false;
+  }); 
+}
+
 function showPista(){
+  checkConection();
+  while(checkConection_temp==false){
+    sleep(2000);
+    checkConection();
+    console.log(checkConection_temp);
+  }
+  
   $.ajax({  //create an ajax request
     type: "GET",
     url: "http://uninorterally1.hol.es/getPista_Lugar.php",             
