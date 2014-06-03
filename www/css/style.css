@@ -24,33 +24,33 @@
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px){
 	.enlarge{
-		font-size: 1.2em;
+		font-size: 1.8em;
 		text-align: center;
 	}
 	.ui-btn{
-		font-size: 1.07em;
+		font-size: 1.2em;
 		text-align: center;
 	}
 }
 
 @media only screen and (min-device-width: 720px) and (max-device-width: 1280px) and (orientation: landscape) {
 	.enlarge{
-		font-size: 2em;
+		font-size: 1.8em;
 		text-align: center;
 	}
 	.ui-btn{
-		font-size: 1.5em;
+		font-size: 1.2em;
 		text-align: center;
 	}
 }
 
 @media only screen and (min-device-width: 1080px) and (max-device-width: 1920px) and (orientation: landscape) {
 	.enlarge{
-		font-size: 1.2em;
+		font-size: 1.8em;
 		text-align: center;
 	}
 	.ui-btn{
-		font-size: 1.07em;
+		font-size: 1.2em;
 		text-align: center;
 	}
 }
