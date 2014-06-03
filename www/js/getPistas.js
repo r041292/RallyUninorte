@@ -430,9 +430,9 @@ function initialize() {
   });
 
   //Location Changed
-  var options = { timeout: 10000 };
+  var options = { timeout: 60000, enableHighAccuracy: true };
   watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
-  setTimeout(f, 1000);
+  setTimeout(f, 3000);
 }
 
 function handleNoGeolocation(errorFlag) {
