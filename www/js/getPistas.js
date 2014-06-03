@@ -114,8 +114,33 @@ function showPista(){
       PistaLat = pista.lat;
       PistaLong = pista.long;
 
+      var rangoLugar =  0.0002;
+
       marcador2 = new google.maps.Marker( {
         position: new google.maps.LatLng(PistaLat, PistaLong),
+        map:map
+      });
+
+      marcador3 = new google.maps.Marker( {
+        position: new google.maps.LatLng(PistaLat-rangoLugar, PistaLong),
+        map:map
+      });
+
+
+      marcador4 = new google.maps.Marker( {
+        position: new google.maps.LatLng(PistaLat+rangoLugar, PistaLong),
+        map:map
+      });
+
+
+      marcador5 = new google.maps.Marker( {
+        position: new google.maps.LatLng(PistaLat, PistaLong+rangoLugar),
+        map:map
+      });
+
+
+      marcador6 = new google.maps.Marker( {
+        position: new google.maps.LatLng(PistaLat, PistaLong-rangoLugar),
         map:map
       });
 
@@ -412,11 +437,7 @@ function initialize() {
         var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         map.setCenter(pos);
 
-        var infowindow = new google.maps.InfoWindow({
-          map: map,
-          position: pos,
-          content: 'Your position'
-        });
+        
 
         map.setCenter(pos);
         }, 
@@ -452,8 +473,6 @@ function handleNoGeolocation(errorFlag) {
     position: new google.maps.LatLng(60, 105),
     content: content
   };
-
-  var infowindow = new google.maps.InfoWindow(options);
     map.setCenter(options.position);
   }
 
@@ -475,7 +494,6 @@ function handleNoGeolocation(errorFlag) {
 
   function f() {
     resetMap(map);
-    console.log("dfsd");
     $('#myPosition').html('My Position: Lat: '+miLat+' Long: '+miLong);
     $('#destino').html('Destino: Lat: '+PistaLat+'  Long: '+PistaLong);
   }
