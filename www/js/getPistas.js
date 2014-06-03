@@ -113,6 +113,11 @@ function showPista(){
       $('#hidden_content1').html(pista.pista);
       PistaLat = pista.lat;
       PistaLong = pista.long;
+
+      marcador2 = new google.maps.Marker( {
+        position: new google.maps.LatLng(PistaLat, PistaLong),
+        map:map
+      });
     }
   }).fail(function() {
     alert( "Verifique su conexión a internet." );
@@ -386,7 +391,7 @@ function OneSecondPassed(){
 
 var map;
 var pos;
-var marcador;
+var marcador, marcador2;
 var watchID = null;
 
 function initialize() {
