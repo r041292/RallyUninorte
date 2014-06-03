@@ -102,10 +102,6 @@ function showPista(){
       contador_intentos+=1;
   }
 
-  if(contador_intentos==100){
-      alert("Lo siento, el juego se reiniciara");
-      window.location.replace("index.html");
-  }
 
   $.ajax({  //create an ajax request
     type: "GET",
@@ -484,6 +480,12 @@ function handleNoGeolocation(errorFlag) {
     if((((PistaLat-rangoLugar) < miLat)&&(miLat < (PistaLat + rangoLugar))) &&
         (((PistaLong+rangoLugar) > miLong)&&(miLong > (PistaLong-rangoLugar)))){
       //cargar ciclo de preguntas
+        alert("Llegaste al lugar!");
+        $.mobile.navigate("#pagetwo", {transition: "slide"});
+        clearPregunta();
+        showPista();
+        showPregunta();
+        startClock();
     }
   } 
 
