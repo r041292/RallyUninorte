@@ -13,6 +13,9 @@ var clockInterval;
 var online = navigator.onLine;
 var d = new Date();
 var checkConection_temp;
+var isPlaying = false;
+var foo;
+
 
 //generar fecha
 Date.prototype.yyyymmdd = function() {
@@ -320,6 +323,7 @@ function verificar(respuesta) {
         
         setTimeout(f, 2000);
         $.mobile.navigate("#pageone", {transition: "slide"});
+        isPlaying = false;
 
         if (ronda==5){
           $.ajax({  //create an ajax request
@@ -509,18 +513,30 @@ function handleNoGeolocation(errorFlag) {
     miLat=ubicacion.coords.latitude;
     miLong=ubicacion.coords.longitude;
     var rangoLugar =  0.0002;
+    var rangoLugar2 =  0.0008;
     //alert(pos);
     map.setCenter(miubicacion);
     marcador.setPosition(miubicacion);
+
+    if((((PistaLat-rangoLugar2) < miLat)&&(miLat < (PistaLat + rangoLugar2))) &&
+        (((PistaLong+rangoLugar2) > miLong)&&(miLong > (PistaLong-rangoLugar2)))){
+      //Sonido
+      foo = new Sound("a.mp3",100,false);
+      foo.start();
+    }
+
     if((((PistaLat-rangoLugar) < miLat)&&(miLat < (PistaLat + rangoLugar))) &&
         (((PistaLong+rangoLugar) > miLong)&&(miLong > (PistaLong-rangoLugar)))){
       //cargar ciclo de preguntas
-        alert("Llegaste al lugar!");
-        $.mobile.navigate("#pagetwo", {transition: "slide"});
-        clearPregunta();
-        showPista();
-        showPregunta();
-        startClock();
+        if(!isPlaying){
+          alert("Llegaste al lugar!");
+          isPlaying = true;
+          $.mobile.navigate("#pagetwo", {transition: "slide"});
+          clearPregunta();
+          showPista();
+          showPregunta();
+          startClock();}
+          foo.stop();
     }
   } 
 
@@ -595,3 +611,43 @@ function manageMultitouch(ev){
   elemRect.style.webkitTransform = transform;
 }
 */
+
+
+//LE BEAT
+
+function Sound(source, volume, loop)
+{
+  this.source=source;
+  this.volume=volume;
+  this.loop=loop;
+  var son;
+  this.son=son;
+  this.finish=false;
+  this.stop=function()
+  {
+      document.body.removeChild(this.son);
+  }
+  this.start=function()
+  {
+      if(this.finish)return false;
+      this.son=document.createElement("embed");
+      this.son.setAttribute("src",this.source);
+      this.son.setAttribute("hidden","true");
+      this.son.setAttribute("volume",this.volume);
+      this.son.setAttribute("autostart","true");
+      this.son.setAttribute("loop",this.loop);
+      document.body.appendChild(this.son);
+  }
+  this.remove=function()
+  {
+      document.body.removeChild(this.son);
+      this.finish=true;
+  }
+  this.init=function(volume,loop)
+  {
+      this.finish=false;
+      this.volume=volume;
+      this.loop=loop;
+  }
+}
+
