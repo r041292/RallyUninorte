@@ -35,11 +35,11 @@
 
 @media only screen and (min-device-width: 720px) and (max-device-width: 1280px) and (orientation: landscape) {
 	.enlarge{
-		font-size: 1.2em;
+		font-size: 2em;
 		text-align: center;
 	}
 	.ui-btn{
-		font-size: 1.07em;
+		font-size: 1.5em;
 		text-align: center;
 	}
 }

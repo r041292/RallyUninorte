@@ -111,8 +111,8 @@ function showPista(){
       //alert(response);      
       var pista = jQuery.parseJSON(response);
       $('#hidden_content1').html(pista.pista);
-      PistaLat = pista.lat;
-      PistaLong = pista.long;
+      PistaLat = parseFloat(pista.lat);
+      PistaLong = parseFloat(pista.long);
 
       var rangoLugar =  0.0002;
 
@@ -121,30 +121,35 @@ function showPista(){
         map:map
       });
 
-      marcador3 = new google.maps.Marker( {
+      marcador3 = new google.maps.InfoWindow( {
         position: new google.maps.LatLng(PistaLat-rangoLugar, PistaLong),
+         content: 'Your position1',
         map:map
       });
 
 
-      marcador4 = new google.maps.Marker( {
+      marcador4 = new google.maps.InfoWindow( {
         position: new google.maps.LatLng(PistaLat+rangoLugar, PistaLong),
+         content: 'Your position2',
         map:map
       });
 
 
-      marcador5 = new google.maps.Marker( {
+      marcador5 = new google.maps.InfoWindow( {
         position: new google.maps.LatLng(PistaLat, PistaLong+rangoLugar),
+         content: 'Your position3',
         map:map
       });
 
 
-      marcador6 = new google.maps.Marker( {
+      marcador6 = new google.maps.InfoWindow( {
         position: new google.maps.LatLng(PistaLat, PistaLong-rangoLugar),
+         content: 'Your position4',
         map:map
       });
 
       $('#destino').html('Destino: Lat: '+PistaLat+'  Long: '+PistaLong);
+      console.log("LAT-"+(PistaLat-rangoLugar) +"\nLAT+"+(PistaLat+rangoLugar)+"\nLONG+"+(PistaLong+rangoLugar)+"\nLONG-"+(PistaLong-rangoLugar));
     }
   }).fail(function() {
     alert( "Verifique su conexión a internet." );
