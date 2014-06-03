@@ -118,6 +118,8 @@ function showPista(){
         position: new google.maps.LatLng(PistaLat, PistaLong),
         map:map
       });
+
+      $('#destino').html('Destino: Lat: '+PistaLat+'  Long: '+PistaLong);
     }
   }).fail(function() {
     alert( "Verifique su conexión a internet." );
@@ -237,6 +239,8 @@ var presionoA = true;
 var presionoB = true;
 var presionoC = true;
 var presionoD = true;
+var miLat;
+var miLong;
 
 
 //AQUI COMIENZA EL DESMADRE__________________________________________________________________________________-
@@ -471,13 +475,16 @@ function handleNoGeolocation(errorFlag) {
 
   function f() {
     resetMap(map);
+    console.log("dfsd");
+    $('#myPosition').html('My Position: Lat: '+miLat+' Long: '+miLong);
+    $('#destino').html('Destino: Lat: '+PistaLat+'  Long: '+PistaLong);
   }
 
   function onSuccess(ubicacion){
     var miubicacion = new google.maps.LatLng(ubicacion.coords.latitude, ubicacion.coords.longitude);
     pos = miubicacion;
-    var miLat=ubicacion.coords.latitude;
-    var miLong=ubicacion.coords.longitude;
+    miLat=ubicacion.coords.latitude;
+    miLong=ubicacion.coords.longitude;
     var rangoLugar =  0.0002;
     //alert(pos);
     map.setCenter(miubicacion);
