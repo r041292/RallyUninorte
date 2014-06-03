@@ -118,7 +118,7 @@ function showPista(){
       PistaLong = parseFloat(pista.long);
 
       var rangoLugar =  0.0002;
-
+      /*
       marcador2 = new google.maps.Marker( {
         position: new google.maps.LatLng(PistaLat, PistaLong),
         map:map
@@ -150,9 +150,10 @@ function showPista(){
          content: 'Your position4',
         map:map
       });
-
+      
+      */
       $('#destino').html('Destino: Lat: '+PistaLat+'  Long: '+PistaLong);
-      console.log("LAT-"+(PistaLat-rangoLugar) +"\nLAT+"+(PistaLat+rangoLugar)+"\nLONG+"+(PistaLong+rangoLugar)+"\nLONG-"+(PistaLong-rangoLugar));
+      //console.log("LAT-"+(PistaLat-rangoLugar) +"\nLAT+"+(PistaLat+rangoLugar)+"\nLONG+"+(PistaLong+rangoLugar)+"\nLONG-"+(PistaLong-rangoLugar));
     }
   }).fail(function() {
     alert( "Verifique su conexión a internet." );
