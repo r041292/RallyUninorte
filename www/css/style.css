@@ -6,30 +6,51 @@
 	display: none;
 }
 
+.jquery_header{
+	font-size: 1em;
+	text-align: center;
+}
+
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-	div,p,.ui-btn{
-		font-size: 1.1em;
+	.enlarge{
+		font-size: 1.08em;
+		text-align: center;
+	}
+	.ui-btn{
+		font-size: 1.02em;
 		text-align: center;
 	}
 }
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px){
-	div,p,.ui-btn{
-		font-size: 1.15em;
+	.enlarge{
+		font-size: 1.1em;
+		text-align: center;
+	}
+	.ui-btn{
+		font-size: 1.04em;
 		text-align: center;
 	}
 }
 
 @media only screen and (min-device-width: 720px) and (max-device-width: 1280px) and (orientation: landscape) {
-	div,p,.ui-btn{
-		font-size: 1.2em;
+	.enlarge{
+		font-size: 1.1em;
+		text-align: center;
+	}
+	.ui-btn{
+		font-size: 1.04em;
 		text-align: center;
 	}
 }
 
 @media only screen and (min-device-width: 1080px) and (max-device-width: 1920px) and (orientation: landscape) {
-	div,p,.ui-btn{
+	.enlarge{
 		font-size: 1.2em;
+		text-align: center;
+	}
+	.ui-btn{
+		font-size: 1.07em;
 		text-align: center;
 	}
 }

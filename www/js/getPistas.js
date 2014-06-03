@@ -492,6 +492,7 @@ function handleNoGeolocation(errorFlag) {
   }
 
 //Hammer -- pinch to zoom  //
+/*
 
 if(!Hammer.HAS_TOUCHEVENTS && !Hammer.HAS_POINTEREVENTS) {
    Hammer.plugins.showTouches();
@@ -555,3 +556,4 @@ function manageMultitouch(ev){
   elemRect.style.mozTransform = transform;
   elemRect.style.webkitTransform = transform;
 }
+*/
