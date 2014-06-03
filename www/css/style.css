@@ -24,22 +24,22 @@
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px){
 	.enlarge{
-		font-size: 1.1em;
+		font-size: 1.2em;
 		text-align: center;
 	}
 	.ui-btn{
-		font-size: 1.04em;
+		font-size: 1.07em;
 		text-align: center;
 	}
 }
 
 @media only screen and (min-device-width: 720px) and (max-device-width: 1280px) and (orientation: landscape) {
 	.enlarge{
-		font-size: 1.1em;
+		font-size: 1.2em;
 		text-align: center;
 	}
 	.ui-btn{
-		font-size: 1.04em;
+		font-size: 1.07em;
 		text-align: center;
 	}
 }

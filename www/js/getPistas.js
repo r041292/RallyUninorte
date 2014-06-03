@@ -430,7 +430,7 @@ function initialize() {
   });
 
   //Location Changed
-  var options = { timeout: 60000, enableHighAccuracy: true };
+  var options = { timeout: 600000, enableHighAccuracy: true };
   watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
   setTimeout(f, 3000);
 }
@@ -488,7 +488,8 @@ function handleNoGeolocation(errorFlag) {
   } 
 
   function onError(){
-    alert("No puedo encontrarte :(");
+    alert("Pasaron 10 minutos y logramos localizarte :(. Regresaras al inicio de la aplicacion.");
+      window.location.replace("index.html");
   }
 
 //Hammer -- pinch to zoom  //
