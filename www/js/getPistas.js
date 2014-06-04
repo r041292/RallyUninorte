@@ -51,8 +51,7 @@ window.onload = function(){
   for (var i = 0; i < numJugadores; i++) {
     ordenTurno[i] = i;
   }
-  //Para reproducir :O
-  document.getElementById("mp3").play();
+  
 }
 
 $('#llegue').click(function(){
@@ -538,6 +537,8 @@ function handleNoGeolocation(errorFlag) {
     if((((PistaLat-rangoLugar2) < miLat)&&(miLat < (PistaLat + rangoLugar2))) &&
         (((PistaLong+rangoLugar2) > miLong)&&(miLong > (PistaLong-rangoLugar2)))){
       //Sonido
+      //Para reproducir :O
+        document.getElementById("mp3").play();
     }
 
     if((((PistaLat-rangoLugar) < miLat)&&(miLat < (PistaLat + rangoLugar))) &&
