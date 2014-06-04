@@ -54,14 +54,7 @@ window.onload = function(){
   
 }
 
-$('#llegue').click(function(){
-	showPista();
-  clearPregunta();
-  showPregunta();
-})
-
 $('#botonpista').click(function(){
-  showPista();
   clearPregunta();
   showPregunta();
   startClock();
@@ -549,7 +542,6 @@ function handleNoGeolocation(errorFlag) {
           isPlaying = true;
           $.mobile.navigate("#pagetwo", {transition: "slide"});
           clearPregunta();
-          showPista();
           showPregunta();
           startClock();}
           foo.stop();
