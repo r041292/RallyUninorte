@@ -444,7 +444,8 @@ var watchID = null;
 
 function initialize() {
   var mapOptions = {
-    zoom: 17
+    zoom: 18,
+    mapTypeId: google.maps.MapTypeId.HYBRID
   };
   
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
