@@ -15,6 +15,8 @@ var d = new Date();
 var checkConection_temp;
 var isPlaying = false;
 var foo;
+var pistss = new Array(5);
+var pisTotal = new Array(15);
 
 
 //generar fecha
@@ -34,10 +36,23 @@ document.addEventListener("deviceready", onDeviceReady, false);
 }
 
 window.onload = function(){
+  //Que no se repitan las pistas
+  for (var i = 0; i < 15; i++) {
+    pisTotal[i] = i+1;
+  }
+
+  for (var i = 0; i < 5; i++) {
+    var t = Math.floor((Math.random() * pisTotal.length));
+    pistss[i] = pisTotal[t];
+    pisTotal.splice(t, 1);
+  }
+  //----
   showPista();
   for (var i = 0; i < numJugadores; i++) {
     ordenTurno[i] = i;
   }
+  //Para reproducir :O
+  document.getElementById("mp3").play();
 }
 
 $('#llegue').click(function(){
@@ -108,7 +123,7 @@ function showPista(){
 
   $.ajax({  //create an ajax request
     type: "GET",
-    url: "http://uninorterally1.hol.es/getPista_Lugar.php",             
+    url: "http://uninorterally1.hol.es/getPista_Lugar.php?numpista="+pistss[0],             
     dataType: "html",   //expect html to be returned                
     success: function(response){                    
       //alert(response);      
@@ -118,6 +133,7 @@ function showPista(){
       PistaLong = parseFloat(pista.long);
 
       var rangoLugar =  0.0002;
+      pistss.splice(0, 1);
       /*
       marcador2 = new google.maps.Marker( {
         position: new google.maps.LatLng(PistaLat, PistaLong),
@@ -522,8 +538,6 @@ function handleNoGeolocation(errorFlag) {
     if((((PistaLat-rangoLugar2) < miLat)&&(miLat < (PistaLat + rangoLugar2))) &&
         (((PistaLong+rangoLugar2) > miLong)&&(miLong > (PistaLong-rangoLugar2)))){
       //Sonido
-      foo = new Sound("a.mp3",100,false);
-      foo.start();
     }
 
     if((((PistaLat-rangoLugar) < miLat)&&(miLat < (PistaLat + rangoLugar))) &&
@@ -616,39 +630,5 @@ function manageMultitouch(ev){
 
 //LE BEAT
 
-function Sound(source, volume, loop)
-{
-  this.source=source;
-  this.volume=volume;
-  this.loop=loop;
-  var son;
-  this.son=son;
-  this.finish=false;
-  this.stop=function()
-  {
-      document.body.removeChild(this.son);
-  }
-  this.start=function()
-  {
-      if(this.finish)return false;
-      this.son=document.createElement("embed");
-      this.son.setAttribute("src",this.source);
-      this.son.setAttribute("hidden","true");
-      this.son.setAttribute("volume",this.volume);
-      this.son.setAttribute("autostart","true");
-      this.son.setAttribute("loop",this.loop);
-      document.body.appendChild(this.son);
-  }
-  this.remove=function()
-  {
-      document.body.removeChild(this.son);
-      this.finish=true;
-  }
-  this.init=function(volume,loop)
-  {
-      this.finish=false;
-      this.volume=volume;
-      this.loop=loop;
-  }
-}
+
 
