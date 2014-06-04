@@ -98,6 +98,7 @@ function checkConection(){
 }
 
 function showPista(){
+  console.log(pistss);
   checkConection();
   var primerintento=true;
   var contador_intentos=1;
@@ -296,7 +297,7 @@ function verificar(respuesta) {
       stopClock();
 
       
-      enviarRespuesta(jugadoresArray[turnoJugador].codigo,jugadoresArray[turnoJugador].nombre,d.yyyymmdd(),d.getHours(),idGrupo,nivelPreguntaActual, numPreguntaActual, tiempoRespuesta, (puntos[turnoJugador]+1));
+      enviarRespuesta(jugadoresArray[turnoJugador].codigo,jugadoresArray[turnoJugador].nombre,d.yyyymmdd(),d.getHours(),idGrupo,nivelPreguntaActual, numPreguntaActual, tiempoRespuesta, ((puntos[turnoJugador]+1)- puntosPasados[turnoJugador]));
 
       if(ordenTurno.length!=0) {
         puntos[turnoJugador] = (puntos[turnoJugador] + 1) ;
