@@ -27,6 +27,8 @@ Date.prototype.yyyymmdd = function() {
    return yyyy + (mm[1]?mm:"0"+mm[0]) + (dd[1]?dd:"0"+dd[0]); // padding
   };
 
+
+
 //desbilitar back button
 document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
@@ -87,6 +89,25 @@ function sleep(milliseconds) {
     }
   }
 }
+
+function playAudio(src) {
+            
+                src = '/android_asset/www/' + src;
+            
+ 
+            var media = new Media(src, success, error_error);
+ 
+            media.play();
+        }
+ 
+        function success() {
+            // ignore
+        }
+ 
+        function error_error(e) {
+            alert('great error');
+            alert(e.message);
+        }
 
 function checkConection(){
   $.ajax({  //create an ajax request
