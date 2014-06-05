@@ -332,10 +332,10 @@ function verificar(respuesta) {
         clearPregunta();
         
         setTimeout(f, 2000);
-        $.mobile.navigate("#pageone", {transition: "slide"});
         isPlaying = false;
 
         if (ronda==5){
+          $.mobile.navigate("#pagethree", {transition: "slide"});
           $.ajax({  //create an ajax request
             type: "GET",
             url: "http://uninorterally1.hol.es/sendMail.php?grupo="+idGrupo,             
@@ -347,13 +347,14 @@ function verificar(respuesta) {
                 resultados_string+="El Puntaje para el jugador #"+(i)+" "+jugadoresArray[i].nombre+" es "+puntos[i]+"<br>";
               }
               $('#game_finished').html(resultados_string);
-              $.mobile.navigate("#pagethree", {transition: "slide"});
+              
             }
           }).fail(function(){
             alert("Verifique su conexión a internet.");
           });
         }else{
           showPista();
+          $.mobile.navigate("#pageone", {transition: "slide"});
           numeroRondas--;
         }
       }
@@ -524,7 +525,7 @@ function handleNoGeolocation(errorFlag) {
     miLat=ubicacion.coords.latitude;
     miLong=ubicacion.coords.longitude;
     var rangoLugar =  0.0002;
-    var rangoLugar2 =  0.0008;
+    var rangoLugar2 =  0.0004;
     //alert(pos);
     map.setCenter(miubicacion);
     marcador.setPosition(miubicacion);
