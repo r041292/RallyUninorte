@@ -1,3 +1,17 @@
+<? 
+  $secreto=0;
+  if(isset($_GET['secreto'])){
+    $secreto= $_GET[secreto];
+    if($secreto != "palabrasecreta123"){
+        header("Location: http://uninorterally1.hol.es");
+        exit;
+    }
+
+  }
+
+
+?>
+
 <html>
   <head>
     <meta charset="utf-8" />
@@ -7,19 +21,19 @@
     <link  rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.2.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" href="../css/themes/tema1.css" />
-    <title>UninorteRally - DB CRUD</title>
+    <title>UninorteRally - ADMINISTRADOR</title>
   </head>
   <body> 
     <div data-role="page" id="pageone" >
       <div data-role="header">
-          <p class="jquery_header" >UninorteRally - DB CRUD</p>
+          <p class="jquery_header" >UninorteRally - ADMINISTRADOR</p>
       </div>
 
       <div data-role="main" class="ui-content">
-           <a href="list_pregunta.php"class="ui-btn" rel="external">CRUD Preguntas</a>
-           <a href="list_lugar.php"  class="ui-btn" rel="external" >CRUD Lugares</a>
-           <a href="list_pista.php"  class="ui-btn" rel="external" >CRUD Pistas</a>
-           <a href="list_resultados.php"  class="ui-btn" rel="external" >CRUD Resultados</a>
+           <a href="list_pregunta.php"class="ui-btn" rel="external">Administrar Preguntas</a>
+           <a href="list_lugar.php"  class="ui-btn" rel="external" >Administrar Lugares</a>
+           <a href="list_pista.php"  class="ui-btn" rel="external" >Administrar Pistas</a>
+           <a href="list_resultados.php"  class="ui-btn" rel="external" >Administrar Resultados</a>
       </div>
 
       <div data-role="footer" data-position="fixed">
