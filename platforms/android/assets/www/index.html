@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link  rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" href="css/themes/tema1.css" />
+        <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+        <title>Uninorte-Rally START</title>
+    </head>
+    <body>
+        <!--<div class="app">
+            <h1>PhoneGap</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div> -->
+        <div data-role="page" id="pageone">
+            <div data-role="header">
+                <p class="jquery_header">Número de usuarios</p>
+            </div>
+
+            <div data-role="main" class="ui-content">
+                <div id="numUsersForm">
+                   <form>
+                        <label for="numUsers">
+                            <p class="enlarge"><b>Número de jugadores en el grupo</b></p>
+                            <input class="enlarge" type="number" id="numeroUsuarios" name="numeroUsuarios">
+                        </label>
+                        <p class="ui-btn"  id="button1">Enviar</p>
+                    </form>
+                 </div>
+            </div>
+
+            <div data-role="footer">
+                <p class="jquery_header">Uninorte Rally</p>
+            </div>
+        </div>
+
+        <div data-role="page" id="pagetwo">
+            <div data-role="header">
+                <p class="jquery_header">Datos de usuarios</p>
+            </div>
+
+            <div data-role="main" class="ui-content">
+                 <div id="infUsersForm">
+                     <form id="dataFromUsers_form">
+                        <label for="dataUsers">
+                            <p id="userinfoheader" class="enlarge"><b>Informacion para Usuario 1</b></p>
+                            <p class="enlarge"><b>Código:</b></p>
+                            <input class="enlarge" type="number" id="idUsuario">
+                            <p class="enlarge"><b>Nombre:</b></p>
+                            <input class="enlarge" type="text" id="nombreUsuario">
+                        </label>
+                        <p class="ui-btn"  id="button2" data-transition="flip" >Enviar</p>
+                    </form>
+                 </div>
+            </div>
+
+            <div data-role="footer">
+                <p class="jquery_header">Uninorte Rally</p>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="js/offline.min.js"></script> 
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
+        <script type="text/javascript" src="js/getUsers.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+        app.initialize();
+        </script>
+    </body>
+</html>
