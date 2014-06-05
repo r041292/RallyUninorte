@@ -36,6 +36,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 }
 
 window.onload = function(){
+  $('#sound_element').html(
+    "<embed src='js/a.mp3' hidden=true autostart=true loop=false>");
   //Que no se repitan las pistas
   for (var i = 0; i < 15; i++) {
     pisTotal[i] = i+1;
@@ -536,7 +538,7 @@ function handleNoGeolocation(errorFlag) {
         (((PistaLong+rangoLugar2) > miLong)&&(miLong > (PistaLong-rangoLugar2)))){
       //Sonido
       //Para reproducir :O
-        document.getElementById("mp3").play();
+        //document.getElementById("mp3").play();
     }
 
     if((((PistaLat-rangoLugar) < miLat)&&(miLat < (PistaLat + rangoLugar))) &&

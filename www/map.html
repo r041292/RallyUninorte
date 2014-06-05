@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -17,7 +18,8 @@
       }
     </script>
 
-    <audio src="js/a.mp3" id="mp3" preload="auto"></audio>
+    <!--<audio src="js/a.mp3" id="mp3" preload="auto"></audio>-->
+    <div id="sound_element"></div>
     <div data-role="page" id="pageone">
       <div data-role="header">
           <p class="jquery_header" >Pistas</p>
@@ -44,16 +46,16 @@
       <div data-role="main" class="ui-content">
         <div id="hidden_content1"></div>
         <div id="pregunta">
-          <div class="enlarge" id="nivel_pregunta"></div><br>
-          <div class="enlarge" id="titulo_pregunta"></div><br>
-          <div class="enlarge" align="justify" id="texto1_pregunta"></div><br>
+          <div class="enlarge"  id="nivel_pregunta"></div><br>
+          <div class="enlarge"  id="titulo_pregunta"></div><br>
+          <div class="enlarge"  align="justify" id="texto1_pregunta"></div><br>
           <div class="enlarge"  id="zoomwrapper1"><div id="imagen1_pregunta"></div></div> <br>
-          <div class="enlarge" align="justify" id="texto2_pregunta"></div><br>
-          <div class="enlarge" id="imagen2_pregunta"></div><br>
-          <div class="enlarge" id="texto3_pregunta"></div> <br>
-          <div class="ui-btn" id="repuesta_a_pregunta"></div><br>
-          <div class="ui-btn" id="repuesta_b_pregunta"></div><br>              
-          <div class="ui-btn" id="repuesta_c_pregunta"></div><br>              
+          <div class="enlarge"  align="justify" id="texto2_pregunta"></div><br>
+          <div class="enlarge"  id="imagen2_pregunta"></div><br>
+          <div class="enlarge"  id="texto3_pregunta"></div> <br>
+          <div class="ui-btn"   id="repuesta_a_pregunta"></div><br>
+          <div class="ui-btn"   id="repuesta_b_pregunta"></div><br>              
+          <div class="ui-btn"   id="repuesta_c_pregunta"></div><br>              
           <div class="ui-btn" id="repuesta_d_pregunta"></div><br>
           <div id="repuesta_correcta_pregunta"></div><br>
         </div>
