@@ -60,6 +60,8 @@ $('#botonpista').click(function(){
   startClock();
 })
 
+
+
 function clearPregunta(){
   $('#titulo_pregunta').html("");
   $('#texto1_pregunta').html("");
