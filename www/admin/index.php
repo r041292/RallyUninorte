@@ -7,7 +7,12 @@
         exit;
     }
 
+  }else{
+    header("Location: http://uninorterally1.hol.es");
+    exit;
   }
+
+  
 
 
 ?>
