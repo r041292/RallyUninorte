@@ -44,6 +44,8 @@ $('#button2').click(function(){
 			var idGrupo = d.getTime() + "" + Math.floor((Math.random() * 5000) + 1);
 			localStorage.setItem("idGrupo", idGrupo);
 			localStorage.setItem("jugadoresArray", JSON.stringify(jugadoresArray));
+			var control = true;
+			localStorage.setItem("control", control);
 			window.location.replace("map.html");
 		}
 	}else{

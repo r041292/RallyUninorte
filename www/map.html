@@ -9,7 +9,14 @@
     <link rel="stylesheet" href="css/themes/tema1.css" />
     <title>UninorteRally - GAME</title>
   </head>
-  <body> 
+  <body>
+    <script type="text/javascript">
+      var control = localStorage.getItem("control");
+      if (!control) {
+        window.location.replace("index.html");
+      }
+    </script>
+
     <audio src="js/a.mp3" id="mp3" preload="auto"></audio>
     <div data-role="page" id="pageone">
       <div data-role="header">
