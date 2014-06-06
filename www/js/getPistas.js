@@ -382,11 +382,11 @@ function verificar(respuesta) {
   checkConection();
   if(checkConection_temp==true){
     if(correcta==respuesta) {
+      hideRespuestas();
       alert("Respuesta Correcta para el jugador: "+turnoJugador+"");
       tiempoRespuesta = clock;
       stopClock();
-
-      hideRespuestas();
+      
       //clearPregunta();
       spinner_pregunta.spin();
       enviarRespuesta(jugadoresArray[turnoJugador].codigo,jugadoresArray[turnoJugador].nombre,d.yyyymmdd(),d.getHours(),idGrupo,nivelPreguntaActual, numPreguntaActual, tiempoRespuesta, ((puntos[turnoJugador]+1)- puntosPasados[turnoJugador]));
