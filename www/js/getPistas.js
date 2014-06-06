@@ -289,19 +289,6 @@ function showPregunta(){
 }
 
 function enviarRespuesta(codigo_est, nombre_est, fecha, hora, grupo_est, nivel_pregunta, num_pregunta, tiempo_respuesta, puntos_pregunta){
-  checkConection();
-   var primerintento=true;
-   var contador_intentos=1;
-   while(checkConection_temp==false){
-     sleep(3000);
-     checkConection();
-     console.log(checkConection_temp);
-       if(primerintento){
-         primerintento=false;
-         alert("Tu conexión a internet esta fallando, favor verificar, cada 3 segundos la aplicacion verificara de nuevo.");
-       }
-       contador_intentos+=1;
-   }
   $.ajax({  
       type: "GET",
       url: "http://uninorterally1.hol.es/getEnviarRespuesta.php?codigo_est="+codigo_est+"&fecha="+fecha+"&hora="+hora+"&nombre_est="+nombre_est+"&grupo_est="+grupo_est+"&nivel_pregunta="+nivel_pregunta+"&num_pregunta="+num_pregunta+"&tiempo_respuesta="+tiempo_respuesta+"&puntos_pregunta="+puntos_pregunta,
@@ -316,6 +303,9 @@ function enviarRespuesta(codigo_est, nombre_est, fecha, hora, grupo_est, nivel_p
       }
 
 
+  }).fail(function() {
+    alert( "Verifique su conexión a internet." );
+    enviarRespuesta(codigo_est, nombre_est, fecha, hora, grupo_est, nivel_pregunta, num_pregunta, tiempo_respuesta, puntos_pregunta);
   });
 }
 
@@ -660,7 +650,7 @@ function handleNoGeolocation(errorFlag) {
   } 
 
   function onError(){
-    alert("Pasaron 10 minutos y logramos localizarte :(. Regresaras al inicio de la aplicacion.");
+    alert("No logramos localizarte :(. Regresaras al inicio de la aplicacion.");
       window.location.replace("index.html");
   }
 
