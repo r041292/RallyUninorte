@@ -20,6 +20,10 @@ img{
 	white-space: normal;
 }
 
+.respuesta-btn{
+	display:none;
+}
+
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	.enlarge{
 		font-size: 1.08em;

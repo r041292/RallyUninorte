@@ -266,6 +266,8 @@ function showPregunta(){
         $('#repuesta_b_pregunta').html("B. "+pregunta.respuesta_b);
         $('#repuesta_c_pregunta').html("C. "+pregunta.respuesta_c);
         $('#repuesta_d_pregunta').html("D. "+pregunta.respuesta_d);
+        showRespuestas();
+
         $('#repuesta_correcta_pregunta').html(pregunta.respuesta_correcta);
         $('#nivel_pregunta').html("TURNO: "+turnoJugador+" Nombre: "+jugadoresArray[turnoJugador].nombre+" RONDA: "+ronda+" LEVEL: "+level);
 
@@ -384,7 +386,8 @@ function verificar(respuesta) {
       tiempoRespuesta = clock;
       stopClock();
 
-      clearPregunta();
+      hideRespuestas();
+      //clearPregunta();
       spinner_pregunta.spin();
       enviarRespuesta(jugadoresArray[turnoJugador].codigo,jugadoresArray[turnoJugador].nombre,d.yyyymmdd(),d.getHours(),idGrupo,nivelPreguntaActual, numPreguntaActual, tiempoRespuesta, ((puntos[turnoJugador]+1)- puntosPasados[turnoJugador]));
 
@@ -644,6 +647,7 @@ function handleNoGeolocation(errorFlag) {
              //cargar ciclo de preguntas
             alert("Llegaste al lugar!");
             isPlaying = true;
+            hideRespuestas();
             $.mobile.navigate("#pagetwo", {transition: "slide"});
             clearPregunta();
             spinner_pregunta.spin();
@@ -658,6 +662,14 @@ function handleNoGeolocation(errorFlag) {
   function onError(){
     alert("Pasaron 10 minutos y logramos localizarte :(. Regresaras al inicio de la aplicacion.");
       window.location.replace("index.html");
+  }
+
+  function hideRespuestas(){
+    $('.respuesta-btn').hide();
+  }
+
+  function showRespuestas(){
+    $('.respuesta-btn').show();
   }
 
 
