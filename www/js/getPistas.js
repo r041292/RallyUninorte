@@ -39,7 +39,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 window.onload = function(){
   $('#sound_element').html(
-    "<embed src='js/a.mp3' hidden=true autostart=true loop=false>");
+    "<embed src='js/BossDeath.ogg' hidden=true autostart=true loop=false>");
   //Que no se repitan las pistas
   for (var i = 0; i < 15; i++) {
     pisTotal[i] = i+1;
@@ -91,13 +91,14 @@ function sleep(milliseconds) {
 }
 
 function playAudio(src) {
-            if (device.platform == 'Android') {
-                src = '/android_asset/www/' + src;
-            }
+          //  if (device.platform == 'Android') {
+                //src = '/android_asset/www/' + src;
+            //}
  
-            var media = new Media(src, success, error_error);
+           // var media = new Media(src, success, error_error);
  
-            media.play();
+            //media.play();
+            document.getElementById("mp3").play();
         }
  
         function success() {
