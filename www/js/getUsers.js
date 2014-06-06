@@ -37,7 +37,7 @@ $('#button2').click(function(){
 		cont+=1;
 		alert("Usuario agregado con éxito.");
 		if(cont<numUsers){
-			$('#userinfoheader').html("<b>Informacion para Usuario "+(cont+1)+"</b>");
+			$('#userinfoheader').html("<b>Informacion para Jugador "+(cont+1)+"</b>");
 			$('#dataFromUsers_form')[0].reset();
 		}else { 
 			var d = new Date();
@@ -55,23 +55,4 @@ $('#button2').click(function(){
 
 function isNumber(n) {
   	return !isNaN(parseFloat(n)) && isFinite(n);
-}
-
-
-
-function checkJSNetConnection(){
- var xhr = new XMLHttpRequest();
- var file = "http://serebii.net/anime/NextOn/834.jpg";
- var r = Math.round(Math.random() * 10000); 
- xhr.open('HEAD', file + "?subins=" + r, false); 
- try {
-  xhr.send(); 
-  if (xhr.status >= 200 && xhr.status < 304) {
-   return true;
-  } else {
-   return false;
-  }
- } catch (e) {
-  return false;
- }
 }

@@ -14,9 +14,31 @@ var online = navigator.onLine;
 var d = new Date();
 var checkConection_temp;
 var isPlaying = false;
-var foo;
 var pistss = new Array(5);
 var pisTotal = new Array(15);
+
+//var para spinner
+var spinner_pista;
+var spinner_pregunta;
+var spinner_resultados;
+var opts = {
+  lines: 13, // The number of lines to draw
+  length: 20, // The length of each line
+  width: 10, // The line thickness
+  radius: 30, // The radius of the inner circle
+  corners: 1, // Corner roundness (0..1)
+  rotate: 0, // The rotation offset
+  direction: 1, // 1: clockwise, -1: counterclockwise
+  color: '#000', // #rgb or #rrggbb or array of colors
+  speed: 1, // Rounds per second
+  trail: 60, // Afterglow percentage
+  shadow: false, // Whether to render a shadow
+  hwaccel: false, // Whether to use hardware acceleration
+  className: 'spinner', // The CSS class to assign to the spinner
+  zIndex: 2e9, // The z-index (defaults to 2000000000)
+  top: '50%', // Top position relative to parent
+  left: '50%' // Left position relative to parent
+};
 
 
 //generar fecha
@@ -37,10 +59,21 @@ document.addEventListener("deviceready", onDeviceReady, false);
         }, false );
 }
 
+ // alert dialog dismissed
+    function alertDismissed() {
+        // do nothing
+    }
+
 window.onload = function(){
-  $('#sound_element').html(
-    "<embed src='js/BossDeath.ogg' hidden=true autostart=true loop=false>");
-  //Que no se repitan las pistas
+  //instalacion de spinner
+  var target = document.getElementById('spin_pista');
+  spinner_pista = new Spinner(opts).spin(target);
+  target = document.getElementById('spin_pregunta');
+  spinner_pregunta = new Spinner(opts).spin(target);
+  target = document.getElementById('spin_resultados');
+  spinner_resultados = new Spinner(opts).spin(target);
+
+   //Que no se repitan las pistas
   for (var i = 0; i < 15; i++) {
     pisTotal[i] = i+1;
   }
@@ -91,14 +124,7 @@ function sleep(milliseconds) {
 }
 
 function playAudio(src) {
-          //  if (device.platform == 'Android') {
-                //src = '/android_asset/www/' + src;
-            //}
- 
-           // var media = new Media(src, success, error_error);
- 
-            //media.play();
-            document.getElementById("mp3").play();
+         document.getElementById("ogg").play();
         }
  
         function success() {
@@ -153,6 +179,9 @@ function showPista(){
 
       var rangoLugar =  0.0002;
       pistss.splice(0, 1);
+
+      //detener spinner
+      spinner_pista.stop();
       /*
       marcador2 = new google.maps.Marker( {
         position: new google.maps.LatLng(PistaLat, PistaLong),
@@ -185,20 +214,36 @@ function showPista(){
          content: 'Your position4',
         map:map
       });
-      
+
       */
-      $('#destino').html('Destino: Lat: '+PistaLat+'  Long: '+PistaLong);
+      //$('#destino').html('Destino: Lat: '+PistaLat+'  Long: '+PistaLong);
       //console.log("LAT-"+(PistaLat-rangoLugar) +"\nLAT+"+(PistaLat+rangoLugar)+"\nLONG+"+(PistaLong+rangoLugar)+"\nLONG-"+(PistaLong-rangoLugar));
     }
   }).fail(function() {
     alert( "Verifique su conexión a internet." );
-  }); 
+  });
 }
 
 function showPregunta(){
+
+
   generarTurno();
   generarNivel();
   if (!fin) {
+    checkConection();
+    var primerintento=true;
+    var contador_intentos=1;
+    while(checkConection_temp==false){
+      sleep(3000);
+      checkConection();
+      console.log(checkConection_temp);
+        if(primerintento){
+          primerintento=false;
+          alert("Tu conexión a internet esta fallando, favor verificar, cada 3 segundos la aplicacion verificara de nuevo.");
+        }
+        contador_intentos+=1;
+    }
+
     $.ajax({  //create an ajax request to load_page.php
       type: "GET",
       url: "http://uninorterally1.hol.es/getPregunta.php?nivelpregunta="+level,             
@@ -224,10 +269,14 @@ function showPregunta(){
         $('#repuesta_correcta_pregunta').html(pregunta.respuesta_correcta);
         $('#nivel_pregunta').html("TURNO: "+turnoJugador+" Nombre: "+jugadoresArray[turnoJugador].nombre+" RONDA: "+ronda+" LEVEL: "+level);
 
-        //Variable para verificacion de respuesta. Elias la usa
+        //Variable para verificacion de respuesta.
         correcta=(pregunta.respuesta_correcta);
         nivelPreguntaActual = pregunta.nivel_pregunta;  
         numPreguntaActual = pregunta.num_pregunta;
+
+        //detener spinner
+
+        spinner_pregunta.stop();
       }
     });
   }else {
@@ -235,9 +284,22 @@ function showPregunta(){
     $('#nivel_pregunta').html("JUEGO TERMINADO!");
 
   }
-} 
+}
 
 function enviarRespuesta(codigo_est, nombre_est, fecha, hora, grupo_est, nivel_pregunta, num_pregunta, tiempo_respuesta, puntos_pregunta){
+  checkConection();
+   var primerintento=true;
+   var contador_intentos=1;
+   while(checkConection_temp==false){
+     sleep(3000);
+     checkConection();
+     console.log(checkConection_temp);
+       if(primerintento){
+         primerintento=false;
+         alert("Tu conexión a internet esta fallando, favor verificar, cada 3 segundos la aplicacion verificara de nuevo.");
+       }
+       contador_intentos+=1;
+   }
   $.ajax({  
       type: "GET",
       url: "http://uninorterally1.hol.es/getEnviarRespuesta.php?codigo_est="+codigo_est+"&fecha="+fecha+"&hora="+hora+"&nombre_est="+nombre_est+"&grupo_est="+grupo_est+"&nivel_pregunta="+nivel_pregunta+"&num_pregunta="+num_pregunta+"&tiempo_respuesta="+tiempo_respuesta+"&puntos_pregunta="+puntos_pregunta,
@@ -283,9 +345,10 @@ function generarNivel() {
   jugadoresArray[turnoJugador].preguntas.splice(levelTemp, 1);
 }
 
-//Seccion de preguntas - Elias //
 
-//B¡VARIABLES NECESARIAS PARA VARIAS COSAS____________________________________________________-
+//Seccion de preguntas  //
+
+//Variables para ciclo de preguntas
 var correcta;
 var numero_jugadores=numJugadores;
 var i=1;
@@ -297,7 +360,7 @@ var puntosPasados = new Array(numero_jugadores);
 var arrayNuevo = new Array(numero_jugadores);
 var largo = (numero_jugadores + 1);
 var puntos = new Array(numero_jugadores);
-        
+
 for ( var l = 0; l < numJugadores; l++) {
   puntos[l]= 0;
   puntosPasados[l]= 0;
@@ -319,10 +382,10 @@ function verificar(respuesta) {
     if(correcta==respuesta) {
       alert("Respuesta Correcta para el jugador: "+turnoJugador+"");
       tiempoRespuesta = clock;
-      //console.log("Tiempo de respuesta: "+ tiempoRespuesta);
       stopClock();
 
-      
+      clearPregunta();
+      spinner_pregunta.spin();
       enviarRespuesta(jugadoresArray[turnoJugador].codigo,jugadoresArray[turnoJugador].nombre,d.yyyymmdd(),d.getHours(),idGrupo,nivelPreguntaActual, numPreguntaActual, tiempoRespuesta, ((puntos[turnoJugador]+1)- puntosPasados[turnoJugador]));
 
       if(ordenTurno.length!=0) {
@@ -335,33 +398,44 @@ function verificar(respuesta) {
         startClock();
       }else {//Respuesta correcta y es el ultimo jugador
         puntos[turnoJugador] = (puntos[turnoJugador] + 1) ;
-        alert("Ya han participado los: "+numJugadores+" jugadores. SIGUIENTE PISTA! :)");
+        alert("Ya participaron todos los jugadores. SIGUIENTE PISTA! :)");
 
         //Puntos sumados en cada ronda
         var s = "";
         for (var i = 0; i < numJugadores; i++) {
           s += puntos[i]+"  ";
         }
-        //alert("PUNTOS TOTAL: "+s);
 
         s = "";
         for (var i = 0; i < numJugadores; i++) {
           s += puntos[i] - puntosPasados[i]+"  ";
           puntosPasados[i] = puntos[i];
         }
-        //alert("PUNTOS EN LA RONDA: "+s);
-       
+
         presionoA = true;
         presionoB = true;
         presionoC = true;
         presionoD = true;
-        clearPregunta();
         
-        setTimeout(f, 2000);
-        isPlaying = false;
 
         if (ronda==5){
           $.mobile.navigate("#pagethree", {transition: "slide"});
+          isPlaying = true;
+
+          checkConection();
+          var primerintento=true;
+          var contador_intentos=1;
+          while(checkConection_temp==false){
+           sleep(3000);
+           checkConection();
+           console.log(checkConection_temp);
+             if(primerintento){
+               primerintento=false;
+               alert("Tu conexión a internet esta fallando, favor verificar, cada 3 segundos la aplicacion verificara de nuevo.");
+             }
+             contador_intentos+=1;
+          }
+
           $.ajax({  //create an ajax request
             type: "GET",
             url: "http://uninorterally1.hol.es/sendMail.php?grupo="+idGrupo,             
@@ -373,13 +447,18 @@ function verificar(respuesta) {
                 resultados_string+="El Puntaje para el jugador #"+(i)+" "+jugadoresArray[i].nombre+" es "+puntos[i]+"<br>";
               }
               $('#game_finished').html(resultados_string);
-              
+              //detener spinner
+              spinner_resultados.stop();
+
             }
           }).fail(function(){
             alert("Verifique su conexión a internet.");
           });
         }else{
+          setTimeout(f, 2000);
+          spinner_pista.spin();
           showPista();
+          isPlaying = false;
           $.mobile.navigate("#pageone", {transition: "slide"});
           numeroRondas--;
         }
@@ -392,9 +471,9 @@ function verificar(respuesta) {
           presionoA = false;
           alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
           puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
-        } 
+        }
       }
-      
+
       if(respuesta == "b") {
         if (presionoB == false) {
           alert("Ya intentaste con esa respuesta");
@@ -402,7 +481,7 @@ function verificar(respuesta) {
           presionoB = false;
           alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
           puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
-        } 
+        }
       }
 
       if(respuesta == "c") {
@@ -412,7 +491,7 @@ function verificar(respuesta) {
           presionoC = false;
           alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
           puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
-        } 
+        }
       }
 
       if(respuesta == "d") {
@@ -422,7 +501,7 @@ function verificar(respuesta) {
           presionoD = false;
           alert("Respuesta Incorrecta para el jugador: "+turnoJugador+"");
           puntos[turnoJugador] = (puntos[turnoJugador] - 1) ;
-        } 
+        }
       }
     }
 }else{
@@ -525,15 +604,10 @@ function handleNoGeolocation(errorFlag) {
 
   google.maps.event.addDomListener(window, 'load', initialize);
 
-  $('#botonmapa').click(function(){
-    //setTimeout(resetMap(map),30000);  
-    setTimeout(f, 1000);
-  })
-
+  
   function resetMap(m) {
     x = m.getZoom();
     c = m.getCenter();
-    //alert(m.getCenter()); 
     google.maps.event.trigger(m, 'resize');
     m.setZoom(x);
     m.setCenter(c);
@@ -550,107 +624,41 @@ function handleNoGeolocation(errorFlag) {
     pos = miubicacion;
     miLat=ubicacion.coords.latitude;
     miLong=ubicacion.coords.longitude;
-    var rangoLugar =  0.0002;
-    var rangoLugar2 =  0.0004;
+    var rangoLugar =  0.00025;
+    var rangoLugar2 =  0.00044;
     //alert(pos);
     map.setCenter(miubicacion);
     marcador.setPosition(miubicacion);
 
-    if((((PistaLat-rangoLugar2) < miLat)&&(miLat < (PistaLat + rangoLugar2))) &&
-        (((PistaLong+rangoLugar2) > miLong)&&(miLong > (PistaLong-rangoLugar2)))){
-      //Sonido
-      //Para reproducir :O
-        //document.getElementById("mp3").play();
+    if(!isPlaying){
+
+      if((((PistaLat-rangoLugar2) < miLat)&&(miLat < (PistaLat + rangoLugar2))) &&
+          (((PistaLong+rangoLugar2) > miLong)&&(miLong > (PistaLong-rangoLugar2)))){
+        //Sonido
+        //Para reproducir :O
+          document.getElementById("ogg").play();
+      }
+
+      if((((PistaLat-rangoLugar) < miLat)&&(miLat < (PistaLat + rangoLugar))) &&
+          (((PistaLong+rangoLugar) > miLong)&&(miLong > (PistaLong-rangoLugar)))){
+             //cargar ciclo de preguntas
+            alert("Llegaste al lugar!");
+            isPlaying = true;
+            $.mobile.navigate("#pagetwo", {transition: "slide"});
+            clearPregunta();
+            spinner_pregunta.spin();
+            showPregunta();
+            startClock();
+      }
+
     }
 
-    if((((PistaLat-rangoLugar) < miLat)&&(miLat < (PistaLat + rangoLugar))) &&
-        (((PistaLong+rangoLugar) > miLong)&&(miLong > (PistaLong-rangoLugar)))){
-      //cargar ciclo de preguntas
-        if(!isPlaying){
-          alert("Llegaste al lugar!");
-          isPlaying = true;
-          $.mobile.navigate("#pagetwo", {transition: "slide"});
-          clearPregunta();
-          showPregunta();
-          startClock();}
-          foo.stop();
-    }
   } 
 
   function onError(){
     alert("Pasaron 10 minutos y logramos localizarte :(. Regresaras al inicio de la aplicacion.");
       window.location.replace("index.html");
   }
-
-//Hammer -- pinch to zoom  //
-/*
-
-if(!Hammer.HAS_TOUCHEVENTS && !Hammer.HAS_POINTEREVENTS) {
-   Hammer.plugins.showTouches();
-}
-
-if(!Hammer.HAS_TOUCHEVENTS && !Hammer.HAS_POINTEREVENTS) {
-   Hammer.plugins.fakeMultitouch();
-}
-
-var hammertime = Hammer(document.getElementById('zoomwrapper1'), {
-    transform_always_block: false,
-    transform_min_scale: 0.5,
-    drag_block_horizontal: false,
-    drag_block_vertical: false,
-    drag_min_distance: 0
-  });
-
-var elemRect;
-var posX=0, posY=0,
-lastPosX=0, lastPosY=0,
-bufferX=0, bufferY=0,
-scale=1, last_scale,
-rotation= 1, last_rotation, dragReady=0;
-
-hammertime.on('touch drag dragend transform', function(ev) {
-    elemRect = document.getElementById('imagen1_pregunta');
-    manageMultitouch(ev);
-  });
-
-function manageMultitouch(ev){
-  switch(ev.type) {
-    case 'touch':
-      last_scale = scale;
-      last_rotation = rotation;
-      break;
-    
-    case 'drag':
-      posX = ev.gesture.deltaX + lastPosX;
-      posY = ev.gesture.deltaY + lastPosY;
-      break;
-
-    case 'transform':
-      rotation = last_rotation + ev.gesture.rotation;
-      scale = Math.max(1, Math.min(last_scale * ev.gesture.scale, 5));
-      break;
-
-    case 'dragend':
-      lastPosX = posX;
-      lastPosY = posY;
-      break;
-  }
-
-  var transform =
-    "translate3d("+0+"px,"+0+"px, 0) " +
-    "scale3d("+scale+","+scale+", 0) " +
-    "rotate("+0+"deg) ";
-
-  elemRect.style.transform = transform;
-  elemRect.style.oTransform = transform;
-  elemRect.style.msTransform = transform;
-  elemRect.style.mozTransform = transform;
-  elemRect.style.webkitTransform = transform;
-}
-*/
-
-
-//LE BEAT
 
 
 

@@ -19,18 +19,18 @@
       }
     </script>
 
-    <audio src="js/BossDeath.ogg" id="mp3" preload="auto"></audio>
+    <audio src="js/BossDeath.ogg" id="ogg" preload="auto"></audio>
     <div id="sound_element"></div>
     <div data-role="page" id="pageone">
       <div data-role="header">
           <p class="jquery_header" >Pistas</p>
       </div>
-      <button onclick="playAudio('BossDeath.ogg')">Play Some Audio</button>
+
+      <!-- <button onclick="playAudio('BossDeath.ogg')">Play Some Audio</button>-->
 
       <div data-role="main" class="ui-content">
+        <div id="spin_pista"></div>
         <div class="enlarge" id="hidden_content1"></div><br>
-          <!--<div id="myPosition">asdasd</div>
-          <div id="destino"></div>-->
            <div style="width:90%;height:600px;margin:0 auto;" id="map-canvas"></div>
            <a href="#pagetwo" id="botonpista" class="ui-btn"></a>
       </div>
@@ -46,14 +46,15 @@
       </div>
 
       <div data-role="main" class="ui-content">
+        <div id="spin_pregunta"></div>
         <div id="hidden_content1"></div>
         <div id="pregunta">
           <div class="enlarge"  id="nivel_pregunta"></div><br>
           <div class="enlarge"  id="titulo_pregunta"></div><br>
           <div class="enlarge"  align="justify" id="texto1_pregunta"></div><br>
-          <div class="enlarge"  id="zoomwrapper1"><div id="imagen1_pregunta"></div></div> <br>
+          <div class="enlarge"  style="width:100%;"><div id="imagen1_pregunta"></div></div> <br>
           <div class="enlarge"  align="justify" id="texto2_pregunta"></div><br>
-          <div class="enlarge"  id="imagen2_pregunta"></div><br>
+          <div class="enlarge"  style="width:100%;" id="imagen2_pregunta"></div><br>
           <div class="enlarge"  id="texto3_pregunta"></div> <br>
           <div class="ui-btn"   id="repuesta_a_pregunta"></div><br>
           <div class="ui-btn"   id="repuesta_b_pregunta"></div><br>              
@@ -74,6 +75,7 @@
       </div>
 
       <div data-role="main" class="ui-content">
+        <div id="spin_resultados"></div>
         <center>JUEGO FINALIZADO. ESTOS SON LOS PUNTAJES:<br>
         <div id="game_finished"></div><br> 
         </center>
@@ -84,13 +86,9 @@
       </div>
     </div>
 
-    <!--JS Para pinch to zoom. Referencia: http://creativedroplets.com/html5-and-multitouch-hammer-js/ -->
-    <script type="text/javascript" src="js/hammer.min.js"></script>
-    <script type="text/javascript" src="js/hammer.fakemultitouch.js"></script>
-    <script type="text/javascript" src="js/hammer.showtouches.js"></script>
-    <!--Fin de los JS para pinch to zoom -->
+    
 
-    <script type="text/javascript" src="js/offline.min.js"></script>  
+    <script type="text/javascript" src="js/spin.js"></script>  
     <script type="text/javascript" src="js/cordova-2.0.0.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> 
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
