@@ -91,9 +91,7 @@ function sleep(milliseconds) {
 }
 
 function playAudio(src) {
-            if (device.platform == 'Android') {
-                src = '/android_asset/www/' + src;
-            }
+           
  
             var media = new Media(src, success, error_error);
  
