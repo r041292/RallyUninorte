@@ -23,10 +23,6 @@ var fileUtils = require('./BB10Utils'),
     FileError = require('./FileError'),
     FileSystem = require('./BB10FileSystem');
 
-if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = function (callback) { callback(); };
-}
-
 module.exports = function (type, size, success, fail) {
     var cordovaFs,
         cordovaFsRoot;

@@ -79,8 +79,7 @@
     [dirEntry setObject:lastPart forKey:@"name"];
     [dirEntry setObject: [NSNumber numberWithInt:([fsName isEqualToString:@"temporary"] ? 0 : 1)] forKey: @"filesystem"];
     [dirEntry setObject:fsName forKey: @"filesystemName"];
-    dirEntry[@"nativeURL"] = [[NSURL fileURLWithPath:[self filesystemPathForFullPath:fullPath]] absoluteString];
-
+    [dirEntry setObject:[NSString stringWithFormat:@"file://%@",[self filesystemPathForFullPath:fullPath]] forKey:@"nativeURL"];
 
     return dirEntry;
 }
@@ -99,7 +98,7 @@
     NSString *path = nil;
     NSString *strippedFullPath = [self stripQueryParametersFromPath:fullPath];
     path = [NSString stringWithFormat:@"%@%@", self.fsRoot, strippedFullPath];
-    if ([path length] > 1 && [path hasSuffix:@"/"]) {
+    if ([path hasSuffix:@"/"]) {
       path = [path substringToIndex:([path length]-1)];
     }
     return path;
@@ -121,9 +120,8 @@
 - (CDVFilesystemURL *)URLforFullPath:(NSString *)fullPath
 {
     if (fullPath) {
-        if ([fullPath hasPrefix:@"/"]) {
-            return [CDVFilesystemURL fileSystemURLWithString:[NSString stringWithFormat:@"%@://localhost/%@%@", kCDVFilesystemURLPrefix, self.name, fullPath]];
-        }
+        if ([fullPath hasPrefix:@"/"])
+        return [CDVFilesystemURL fileSystemURLWithString:[NSString stringWithFormat:@"%@://localhost/%@%@", kCDVFilesystemURLPrefix, self.name, fullPath]];
         return [CDVFilesystemURL fileSystemURLWithString:[NSString stringWithFormat:@"%@://localhost/%@/%@", kCDVFilesystemURLPrefix, self.name, fullPath]];
     }
     return nil;
@@ -131,7 +129,7 @@
 
 - (CDVFilesystemURL *)URLforFilesystemPath:(NSString *)path
 {
-    return [self URLforFullPath:[[self fullPathForFileSystemPath:path] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [self URLforFullPath:[self fullPathForFileSystemPath:path]];
 
 }
 
@@ -453,7 +451,7 @@
 - (CDVPluginResult *)truncateFileAtURL:(CDVFilesystemURL *)localURI atPosition:(unsigned long long)pos
 {
     unsigned long long newPos = [self truncateFile:[self filesystemPathForURL:localURI] atPosition:pos];
-    return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:(int)newPos];
+    return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:newPos];
 }
 
 - (CDVPluginResult *)writeToFileAtURL:(CDVFilesystemURL *)localURL withData:(NSData*)encData append:(BOOL)shouldAppend
@@ -470,7 +468,7 @@
             NSUInteger len = [encData length];
             [fileStream open];
 
-            bytesWritten = (int)[fileStream write:[encData bytes] maxLength:len];
+            bytesWritten = [fileStream write:[encData bytes] maxLength:len];
 
             [fileStream close];
             if (bytesWritten > 0) {
@@ -606,7 +604,7 @@
             }
             if (bSuccess) {
                 // should verify it is there and of the correct type???
-                NSDictionary* newEntry = [self makeEntryForPath:newFullPath fileSystemName:destURL.fileSystemName isDirectory:bSrcIsDir];
+                NSDictionary* newEntry = [self makeEntryForPath:newFullPath fileSystemName:srcURL.fileSystemName isDirectory:bSrcIsDir];  // should be the same type as source
                 result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:newEntry];
             } else {
                 if (error) {

@@ -29,10 +29,6 @@ var argscheck = require('cordova/argscheck'),
         DirectoryEntry.__super__.constructor.call(this, false, true, name, fullPath, fileSystem);
     };
 
-if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = function (callback) { callback(); };
-}
-
 utils.extend(DirectoryEntry, Entry);
 
 DirectoryEntry.prototype.createReader = function () {
