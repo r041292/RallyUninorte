@@ -40,7 +40,6 @@ var opts = {
   left: '50%' // Left position relative to parent
 };
 
-
 //generar fecha
 Date.prototype.yyyymmdd = function() {
    var yyyy = this.getFullYear().toString();
@@ -49,20 +48,18 @@ Date.prototype.yyyymmdd = function() {
    return yyyy + (mm[1]?mm:"0"+mm[0]) + (dd[1]?dd:"0"+dd[0]); // padding
   };
 
-
-
 //desbilitar back button
 document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() {
-        document.addEventListener("backbutton", function (e) {
-            e.preventDefault();
-        }, false );
+  function onDeviceReady() {
+    document.addEventListener("backbutton", function (e) {
+      e.preventDefault();
+    }, false );
 }
 
- // alert dialog dismissed
-    function alertDismissed() {
-        // do nothing
-    }
+// alert dialog dismissed
+function alertDismissed() {
+  // do nothing
+}
 
 window.onload = function(){
   //instalacion de spinner
@@ -73,7 +70,7 @@ window.onload = function(){
   target = document.getElementById('spin_resultados');
   spinner_resultados = new Spinner(opts).spin(target);
 
-   //Que no se repitan las pistas
+  //No se repiten las pistas
   for (var i = 0; i < 15; i++) {
     pisTotal[i] = i+1;
   }
@@ -83,12 +80,11 @@ window.onload = function(){
     pistss[i] = pisTotal[t];
     pisTotal.splice(t, 1);
   }
-  //----
+
   showPista();
   for (var i = 0; i < numJugadores; i++) {
     ordenTurno[i] = i;
   }
-  
 }
 
 $('#botonpista').click(function(){
@@ -96,8 +92,6 @@ $('#botonpista').click(function(){
   showPregunta();
   startClock();
 })
-
-
 
 function clearPregunta(){
   $('#titulo_pregunta').html("");
@@ -124,22 +118,22 @@ function sleep(milliseconds) {
 }
 
 function playAudio(src) {
-         document.getElementById("ogg").play();
-        }
+  document.getElementById("ogg").play();
+}
  
-        function success() {
-            // ignore
-        }
+function success() {
+  // ignore
+}
  
-        function error_error(e) {
-            alert('great error');
-            alert(e.message);
-        }
+function error_error(e) {
+  alert('great error');
+  alert(e.message);
+}
 
 function checkConection(){
   $.ajax({  //create an ajax request
     type: "GET",
-    url: "http://uninorterally1.hol.es/scriptBobo.php",             
+    url: "http://uninorterally1.hol.es/checkConnection.php",             
     dataType: "html",   //expect html to be returned                
     success: function(response){                    
         checkConection_temp = true;
@@ -164,7 +158,6 @@ function showPista(){
       }
       contador_intentos+=1;
   }
-
 
   $.ajax({  //create an ajax request
     type: "GET",
@@ -225,8 +218,6 @@ function showPista(){
 }
 
 function showPregunta(){
-
-
   generarTurno();
   generarNivel();
   if (!fin) {
@@ -301,8 +292,6 @@ function enviarRespuesta(codigo_est, nombre_est, fecha, hora, grupo_est, nivel_p
             console.log("Error al enviar los resultados");
           }
       }
-
-
   }).fail(function() {
     alert( "Verifique su conexión a internet." );
     enviarRespuesta(codigo_est, nombre_est, fecha, hora, grupo_est, nivel_pregunta, num_pregunta, tiempo_respuesta, puntos_pregunta);
@@ -337,7 +326,6 @@ function generarNivel() {
   jugadoresArray[turnoJugador].preguntas.splice(levelTemp, 1);
 }
 
-
 //Seccion de preguntas  //
 
 //Variables para ciclo de preguntas
@@ -366,8 +354,6 @@ var presionoD = true;
 var miLat;
 var miLong;
 
-
-//AQUI COMIENZA EL DESMADRE__________________________________________________________________________________-
 function verificar(respuesta) {
   checkConection();
   if(checkConection_temp==true){
@@ -628,7 +614,7 @@ function handleNoGeolocation(errorFlag) {
       if((((PistaLat-rangoLugar2) < miLat)&&(miLat < (PistaLat + rangoLugar2))) &&
           (((PistaLong+rangoLugar2) > miLong)&&(miLong > (PistaLong-rangoLugar2)))){
         //Sonido
-        //Para reproducir :O
+        //Para reproducir 
           document.getElementById("ogg").play();
       }
 
@@ -661,6 +647,3 @@ function handleNoGeolocation(errorFlag) {
   function showRespuestas(){
     $('.respuesta-btn').show();
   }
-
-
-
