@@ -14,7 +14,7 @@ if(!$_SESSION['shouldPass']){
     exit;
 }
 
-include('config.php'); 
+include('../connection.php'); 
 if (isset($_POST['submitted'])) { 
 foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
 $sql = "INSERT INTO `Resultados` ( `fecha` ,  `hora` ,  `codigo_est` ,  `nombre_est` ,  `grupo_est` ,  `nivel_pregunta` ,  `numero_pregunta` ,  `tiempo_respuesta` ,  `puntos_pregunta`  ) VALUES(  '{$_POST['fecha']}' ,  '{$_POST['hora']}' ,  '{$_POST['codigo_est']}' ,  '{$_POST['nombre_est']}' ,  '{$_POST['grupo_est']}' ,  '{$_POST['nivel_pregunta']}' ,  '{$_POST['numero_pregunta']}' ,  '{$_POST['tiempo_respuesta']}' ,  '{$_POST['puntos_pregunta']}'  ) "; 

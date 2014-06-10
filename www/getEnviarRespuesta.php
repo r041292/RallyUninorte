@@ -1,5 +1,5 @@
 <?php
-	include("conection.php"); 
+	include("connection.php"); 
 	$codigo_est=0;
 	$fecha="";
 	$hora="";

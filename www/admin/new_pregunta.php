@@ -6,7 +6,7 @@ if(!$_SESSION['shouldPass']){
     exit;
 }
 
-include('config.php'); 
+include('../connection.php'); 
 if (isset($_POST['submitted'])) { 
 foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
 $sql = "INSERT INTO `Pregunta` ( `num_pregunta` ,  `nivel_pregunta` ,  `titulo_pregunta` ,  `texto_1` ,  `texto_2` ,  `texto_3` ,  `imagen_1` ,  `imagen_2` ,  `respuesta_a` ,  `respuesta_b` ,  `respuesta_c` ,  `respuesta_d` ,  `respuesta_correcta` ,  `tipo_pregunta`  ) VALUES(  '{$_POST['num_pregunta']}' ,  '{$_POST['nivel_pregunta']}' ,  '{$_POST['titulo_pregunta']}' ,  '{$_POST['texto_1']}' ,  '{$_POST['texto_2']}' ,  '{$_POST['texto_3']}' ,  '{$_POST['imagen_1']}' ,  '{$_POST['imagen_2']}' ,  '{$_POST['respuesta_a']}' ,  '{$_POST['respuesta_b']}' ,  '{$_POST['respuesta_c']}' ,  '{$_POST['respuesta_d']}' ,  '{$_POST['respuesta_correcta']}' ,  '{$_POST['tipo_pregunta']}'  ) "; 

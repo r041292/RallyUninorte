@@ -14,7 +14,7 @@ if(!$_SESSION['shouldPass']){
     exit;
 }
 
-include('config.php'); 
+include('../connection.php'); 
 if (isset($_POST['submitted'])) { 
 foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
 $sql = "INSERT INTO `Pista` ( `pista` ,  `id_lugar`  ) VALUES(  '{$_POST['pista']}' ,  '{$_POST['id_lugar']}'  ) "; 

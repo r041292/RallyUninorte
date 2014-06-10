@@ -22,7 +22,7 @@ catch (Exception $e)
 { header("Location: http://uninorterally1.hol.es");}
 
 
-include('config.php'); 
+include('../connection.php'); 
 echo "<table border=1 >"; 
 echo "<tr>"; 
 echo "<td><b>Id Lugar</b></td>"; 

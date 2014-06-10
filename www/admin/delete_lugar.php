@@ -14,7 +14,7 @@ if(!$_SESSION['shouldPass']){
     exit;
 }
 
-include('config.php'); 
+include('../connection.php'); 
 $id_lugar = (int) $_GET['id_lugar']; 
 mysql_query("DELETE FROM `Lugar` WHERE `id_lugar` = '$id_lugar' ") ; 
 echo (mysql_affected_rows()) ? "Row deleted.<br /> " : "Nothing deleted.<br /> "; 

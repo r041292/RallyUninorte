@@ -15,7 +15,7 @@ if(!$_SESSION['shouldPass']){
     exit;
 }
 
-include('config.php'); 
+include('../connection.php'); 
 echo "<table border=1 >"; 
 echo "<tr>"; 
 echo "<td><b>Id Resultado</b></td>"; 

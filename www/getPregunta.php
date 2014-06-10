@@ -1,5 +1,5 @@
 <?php
-	include("conection.php"); 
+	include("connection.php"); 
 	$numpregunta=0;
 	$nivelpregunta=0;
 

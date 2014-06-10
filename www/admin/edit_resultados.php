@@ -14,7 +14,7 @@ if(!$_SESSION['shouldPass']){
     exit;
 }
 
-include('config.php'); 
+include('../connection.php'); 
 if (isset($_GET['id_resultado']) ) { 
 $id_resultado = (int) $_GET['id_resultado']; 
 if (isset($_POST['submitted'])) { 

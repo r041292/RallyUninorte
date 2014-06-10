@@ -1,5 +1,5 @@
 <?php 
-	include("conection.php"); 
+	include("connection.php"); 
 	$numpista=0;
 	if(isset($_GET['numpista'])){
 		$numpista= $_GET[numpista];
