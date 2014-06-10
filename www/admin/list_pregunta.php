@@ -1,4 +1,20 @@
-<? 
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="f/css/normalize.css">
+	<link rel="stylesheet" href="f/css/foundation.css">
+</head>
+<body>
+<h1>Preguntas</h1>
+<?
+
+session_start();
+if(!$_SESSION['shouldPass']){
+	header("Location: http://uninorterally1.hol.es");
+    exit;
+}
+
 include('config.php'); 
 echo "<table border=1 >"; 
 echo "<tr>"; 
@@ -37,9 +53,10 @@ echo "<td valign='top'>" . nl2br( $row['respuesta_c']) . "</td>";
 echo "<td valign='top'>" . nl2br( $row['respuesta_d']) . "</td>";  
 echo "<td valign='top'>" . nl2br( $row['respuesta_correcta']) . "</td>";  
 echo "<td valign='top'>" . nl2br( $row['tipo_pregunta']) . "</td>";  
-echo "<td valign='top'><a href=edit_pregunta.php?id_pregunta={$row['id_pregunta']}>Edit</a></td><td><a href=delete_pregunta.php?id_pregunta={$row['id_pregunta']}>Delete</a></td> "; 
+//echo "<td valign='top'><a href=edit_pregunta.php?id_pregunta={$row['id_pregunta']}>Edit</a></td><td><a href=delete_pregunta.php?id_pregunta={$row['id_pregunta']}>Delete</a></td> "; 
+echo "<td valign='top'><a href=edit_pregunta.php?id_pregunta={$row['id_pregunta']}>Edit</a></td>";
 echo "</tr>"; 
 } 
 echo "</table>"; 
-echo "<a href=new_pregunta.php>New Row</a>"; 
+//echo "<a href=new_pregunta.php>New Row</a>"; 
 ?>

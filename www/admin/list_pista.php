@@ -8,6 +8,13 @@
 <body>
 <h1>Pista</h1>
 <? 
+
+session_start();
+if(!$_SESSION['shouldPass']){
+	header("Location: http://uninorterally1.hol.es");
+    exit;
+}
+
 include('config.php'); 
 echo "<table border=1 >"; 
 echo "<tr>"; 
@@ -22,11 +29,12 @@ echo "<tr>";
 echo "<td valign='top'>" . nl2br( $row['id_pista']) . "</td>";  
 echo "<td valign='top'>" . nl2br( $row['pista']) . "</td>";  
 echo "<td valign='top'>" . nl2br( $row['id_lugar']) . "</td>";  
-echo "<td valign='top'><a href=edit_pista.php?id_pista={$row['id_pista']}>Edit</a></td><td><a href=delete_pista.php?id_pista={$row['id_pista']}>Delete</a></td> "; 
+//echo "<td valign='top'><a href=edit_pista.php?id_pista={$row['id_pista']}>Edit</a></td><td><a href=delete_pista.php?id_pista={$row['id_pista']}>Delete</a></td> "; 
+echo "<td valign='top'><a href=edit_pista.php?id_pista={$row['id_pista']}>Edit</a></td>";
 echo "</tr>"; 
 } 
 echo "</table>"; 
-echo "<a class='button' href=new_pista.php>New Row</a>"; 
+//echo "<a class='button' href=new_pista.php>New Row</a>"; 
 ?>
 
 </body>

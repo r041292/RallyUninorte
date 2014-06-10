@@ -1,10 +1,14 @@
 <? 
+  session_start();
+  $_SESSION['shouldPass'] = false; 
   $secreto=0;
-  if(isset($_GET['secreto'])){
-    $secreto= $_GET[secreto];
-    if($secreto != "palabrasecreta123"){
+  if(isset($_GET['shh'])){
+    $secreto= $_GET[shh];
+    if($secreto != "csXE6Kgm930HjPOlk82oSa1P3zIJI8PiXvSJy63LDsRJI3uw2b8rUDLhe02u"){
         header("Location: http://uninorterally1.hol.es");
         exit;
+    }else{
+      $_SESSION['shouldPass'] = true; 
     }
 
   }else{

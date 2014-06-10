@@ -7,6 +7,13 @@
 </head>
 <body>
 <? 
+
+session_start();
+if(!$_SESSION['shouldPass']){
+	header("Location: http://uninorterally1.hol.es");
+    exit;
+}
+
 include('config.php'); 
 if (isset($_GET['id_resultado']) ) { 
 $id_resultado = (int) $_GET['id_resultado']; 

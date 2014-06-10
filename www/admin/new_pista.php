@@ -7,6 +7,13 @@
 </head>
 <body>
 <? 
+
+session_start();
+if(!$_SESSION['shouldPass']){
+	header("Location: http://uninorterally1.hol.es");
+    exit;
+}
+
 include('config.php'); 
 if (isset($_POST['submitted'])) { 
 foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 

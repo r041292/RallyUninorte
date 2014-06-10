@@ -8,6 +8,13 @@
 <body>
 <h1>Resultados</h1>
 <? 
+
+session_start();
+if(!$_SESSION['shouldPass']){
+	header("Location: http://uninorterally1.hol.es");
+    exit;
+}
+
 include('config.php'); 
 echo "<table border=1 >"; 
 echo "<tr>"; 
@@ -36,11 +43,12 @@ echo "<td valign='top'>" . nl2br( $row['nivel_pregunta']) . "</td>";
 echo "<td valign='top'>" . nl2br( $row['numero_pregunta']) . "</td>";  
 echo "<td valign='top'>" . nl2br( $row['tiempo_respuesta']) . "</td>";  
 echo "<td valign='top'>" . nl2br( $row['puntos_pregunta']) . "</td>";  
-echo "<td valign='top'><a href=edit_resultados.php?id_resultado={$row['id_resultado']}>Edit</a></td><td><a href=delete_resultados.php?id_resultado={$row['id_resultado']}>Delete</a></td> "; 
+//echo "<td valign='top'><a href=edit_resultados.php?id_resultado={$row['id_resultado']}>Edit</a></td><td><a href=delete_resultados.php?id_resultado={$row['id_resultado']}>Delete</a></td> "; 
+echo "<td valign='top'><a href=edit_resultados.php?id_resultado={$row['id_resultado']}>Edit</a></td>";
 echo "</tr>"; 
 } 
 echo "</table>"; 
-echo "<a class='button' href=new_resultados.php>New Row</a>"; 
+//echo "<a class='button' href=new_resultados.php>New Row</a>"; 
 ?>
 </body>
 </html>

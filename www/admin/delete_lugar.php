@@ -7,6 +7,13 @@
 </head>
 <body>
 <? 
+
+session_start();
+if(!$_SESSION['shouldPass']){
+	header("Location: http://uninorterally1.hol.es");
+    exit;
+}
+
 include('config.php'); 
 $id_lugar = (int) $_GET['id_lugar']; 
 mysql_query("DELETE FROM `Lugar` WHERE `id_lugar` = '$id_lugar' ") ; 
