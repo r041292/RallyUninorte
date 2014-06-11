@@ -16,6 +16,7 @@ var checkConection_temp;
 var isPlaying = false;
 var pistss = new Array(5);
 var pisTotal = new Array(15);
+var baseUrl = "http://uninorterally1.hol.es/";
 
 //var para spinner
 var spinner_pista;
@@ -133,7 +134,7 @@ function error_error(e) {
 function checkConection(){
   $.ajax({  //create an ajax request
     type: "GET",
-    url: "http://uninorterally1.hol.es/checkConnection.php",             
+    url: baseUrl+"checkConnection.php",             
     dataType: "html",   //expect html to be returned                
     success: function(response){                    
         checkConection_temp = true;
@@ -161,7 +162,7 @@ function showPista(){
 
   $.ajax({  //create an ajax request
     type: "GET",
-    url: "http://uninorterally1.hol.es/getPista_Lugar.php?numpista="+pistss[0],             
+    url: baseUrl+"getPista_Lugar.php?numpista="+pistss[0],             
     dataType: "html",   //expect html to be returned                
     success: function(response){                    
       //alert(response);      
@@ -237,7 +238,7 @@ function showPregunta(){
 
     $.ajax({  //create an ajax request to load_page.php
       type: "GET",
-      url: "http://uninorterally1.hol.es/getPregunta.php?nivelpregunta="+level,             
+      url: baseUrl+"getPregunta.php?nivelpregunta="+level,             
       dataType: "html",   //expect html to be returned                
       success: function(response){                    
         //alert(response);
@@ -282,7 +283,7 @@ function showPregunta(){
 function enviarRespuesta(codigo_est, nombre_est, fecha, hora, grupo_est, nivel_pregunta, num_pregunta, tiempo_respuesta, puntos_pregunta){
   $.ajax({  
       type: "GET",
-      url: "http://uninorterally1.hol.es/getEnviarRespuesta.php?codigo_est="+codigo_est+"&fecha="+fecha+"&hora="+hora+"&nombre_est="+nombre_est+"&grupo_est="+grupo_est+"&nivel_pregunta="+nivel_pregunta+"&num_pregunta="+num_pregunta+"&tiempo_respuesta="+tiempo_respuesta+"&puntos_pregunta="+puntos_pregunta,
+      url: baseUrl+"getEnviarRespuesta.php?codigo_est="+codigo_est+"&fecha="+fecha+"&hora="+hora+"&nombre_est="+nombre_est+"&grupo_est="+grupo_est+"&nivel_pregunta="+nivel_pregunta+"&num_pregunta="+num_pregunta+"&tiempo_respuesta="+tiempo_respuesta+"&puntos_pregunta="+puntos_pregunta,
       dataType: "html",   //expect html to be returned                
       success: function(response){                    
         var respuesta = response;
@@ -417,7 +418,7 @@ function verificar(respuesta) {
 
           $.ajax({  //create an ajax request
             type: "GET",
-            url: "http://uninorterally1.hol.es/sendMail.php?grupo="+idGrupo,             
+            url: baseUrl+"sendMail.php?grupo="+idGrupo,             
             dataType: "html",   //expect html to be returned                
             success: function(){                    
               var resultados_string="";
